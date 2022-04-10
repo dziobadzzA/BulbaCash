@@ -16,7 +16,7 @@ class CourseDayImpl @Inject constructor(
     }
 
     override suspend fun getRateDate(id: Int, onDate: String): Rate? {
-        TODO("Not yet implemented")
+       return bankApi.getRateDate(id = id, onDate = onDate)?.let { mapRatePojoToRate.map(it) }
     }
 
 }

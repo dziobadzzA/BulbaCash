@@ -8,8 +8,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.service.bulbacash.R
+import com.service.bulbacash.data.mappers.RatePojoToRate
+import com.service.bulbacash.data.repositories.CourseDayImpl
 import com.service.bulbacash.databinding.ActivityMainBinding
+import com.service.bulbacash.di.NetworkModule
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
