@@ -16,7 +16,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLoginRepository(
+    fun provideCourseRepository(
         bankApi: BankApiService,
         mapRatePojoToRate: RatePojoToRate
     ): CourseDayRepository {
