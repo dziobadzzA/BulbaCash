@@ -100,4 +100,8 @@ class CourseViewModel @Inject constructor(
         }
     }
 
+    private fun diffOldNewBucket() {
+
+    }
+
 }
