@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".presentation.ui.course.CourseFragment">
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_bucket"
@@ -22,6 +24,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="10"
         tools:layout_editor_absoluteX="0dp"
-        tools:listitem="@layout/bucket" />
+        tools:listitem="@layout/bucket" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
