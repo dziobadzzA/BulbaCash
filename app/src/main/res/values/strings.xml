@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BulbaCash</string>
+    <string name="course_valuta">Курс валют</string>
+    <string name="Check">Баланс</string>
+    <string name="Templates_money">Шаблон расходов</string>
+    <string name="History_balans">История расходов</string>
+    <string name="Future_balans">Заметка расхода</string>
+    <string name="About_app">О приложении</string>
 </resources>
