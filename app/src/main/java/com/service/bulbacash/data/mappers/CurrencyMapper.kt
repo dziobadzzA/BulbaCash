@@ -6,7 +6,7 @@ import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.utill.Mapper
 
 
-class CurrencyMapperToCurrency : Mapper<CurrencyPojo, Currency> {
+class CurrencyPojoToCurrency : Mapper<CurrencyPojo, Currency> {
     override fun map(from: CurrencyPojo): Currency {
 
         val isCurDateEnd = (System.currentTimeMillis() - Helper.format.parseDateTime(from.Cur_DateEnd).millis

@@ -1,6 +1,7 @@
 package com.service.bulbacash.di
 
-import com.service.bulbacash.data.mappers.CurrencyMapperToCurrency
+import com.service.bulbacash.data.mappers.CurrencyPojoToCurrency
+import com.service.bulbacash.data.mappers.RatePojoToRate
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,8 +12,14 @@ import dagger.hilt.components.SingletonComponent
 object MapperModule {
 
     @Provides
-    fun provideCurrencyPojoToCurrency(): CurrencyMapperToCurrency {
-        return CurrencyMapperToCurrency()
+    fun provideCurrencyPojoToCurrency(): CurrencyPojoToCurrency {
+        return CurrencyPojoToCurrency()
     }
+
+    @Provides
+    fun provideRatePojoToRate(): RatePojoToRate {
+        return RatePojoToRate()
+    }
+
 
 }
