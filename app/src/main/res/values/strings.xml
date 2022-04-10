@@ -6,4 +6,9 @@
     <string name="History_balans">История расходов</string>
     <string name="Future_balans">Заметка расхода</string>
     <string name="About_app">О приложении</string>
+    <string name="coefficient">1.0</string>
+    <string name="defaultUSA">1 Доллар США</string>
+    <string name="defaultBLR">1 Белорусский рубль</string>
+    <string name="defaultValueUSA">2.82</string>
+    <string name="defaultValueBLR">1.00</string>
 </resources>
