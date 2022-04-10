@@ -2,6 +2,7 @@ package com.service.bulbacash.di
 
 import com.service.bulbacash.data.mappers.CurrencyPojoToCurrency
 import com.service.bulbacash.data.mappers.RatePojoToRate
+import com.service.bulbacash.data.mappers.RateShortPojoToRateShort
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,5 +22,9 @@ object MapperModule {
         return RatePojoToRate()
     }
 
+    @Provides
+    fun provideRateShortPojoToRateShort(): RateShortPojoToRateShort {
+        return RateShortPojoToRateShort()
+    }
 
 }
