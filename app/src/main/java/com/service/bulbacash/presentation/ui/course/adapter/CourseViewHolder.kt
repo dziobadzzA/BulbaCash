@@ -12,8 +12,7 @@ class CourseViewHolder(
     fun bind(bucket: BucketRate) {
 
         binding.buttonDatetime.setOnClickListener {
-            // TODO time
-            listener.clickItemCourseDate(bucket = bucket, "")
+            listener.clickItemCourseDate(bucket = bucket)
         }
 
         binding.buttonGraphics.setOnClickListener {
