@@ -24,13 +24,12 @@ class CourseViewModel @Inject constructor(
     val buckets = _buckets.asStateFlow()
 
     fun getAllCourseToday() {
-        val tempListBucketRate: MutableList<BucketRate> = _buckets.value
-        for (i in 0 until tempListBucketRate.size) {
+        for (i in 0 until _buckets.value.size) {
            CoroutineScope(Dispatchers.Default).launch {
-               tempListBucketRate[i] = updateBucket(item = tempListBucketRate[i])
+               val response = updateBucket(item = _buckets.value[i])
+               _buckets.value[i] = response
            }
         }
-        _buckets.value = tempListBucketRate
     }
 
     private suspend fun updateBucket(item: BucketRate):BucketRate
@@ -47,7 +46,6 @@ class CourseViewModel @Inject constructor(
         item
     }
 
-
     private suspend fun updateElementRateInBucket(item: Rate): Rate?
         = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
             item.let { courseTodayUseCase.invoke(it.Cur_ID) }
@@ -61,7 +59,8 @@ class CourseViewModel @Inject constructor(
     fun getItemCourseDate(bucket: BucketRate, onDate: String) {
         val index = _buckets.value.indexOf(bucket)
         CoroutineScope(Dispatchers.Default).launch {
-            _buckets.value[index] = updateBucket(_buckets.value[index], onDate)
+             val response = updateBucket(_buckets.value[index], onDate)
+            _buckets.value[index] = response
         }
     }
 

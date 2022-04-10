@@ -20,6 +20,13 @@ class CourseViewHolder(
             listener.clickItemCourseGraph(bucket = bucket)
         }
 
+        binding.apply {
+            firstCoefficientBy.text = bucket.firstElement?.Cur_OfficialRate.toString()
+            secondCoefficientBy.text  = bucket.secondElement?.Cur_OfficialRate.toString()
+            firstElement.text = "${bucket.firstElement?.Cur_Scale}  ${bucket.firstElement?.Cur_Name}"
+            secondElement.text ="${bucket.secondElement?.Cur_Scale}  ${bucket.secondElement?.Cur_Name}"
+        }
+
     }
 
 }
