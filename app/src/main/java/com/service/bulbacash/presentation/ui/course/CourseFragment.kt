@@ -15,7 +15,6 @@ class CourseFragment: Fragment(R.layout.course_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = CourseFragmentBinding.bind(view)
-
     }
 
     override fun onDestroyView() {
