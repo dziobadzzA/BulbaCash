@@ -39,7 +39,10 @@ class CourseViewModel @Inject constructor(
             Cur_Scale = 1,
             Cur_Name = "Евро",
             Cur_OfficialRate = 3.00
-        )
+        ),
+        0.93,
+        1,
+        1
     ))
 
     private var _buckets = MutableStateFlow(list.toMutableList())
@@ -58,8 +61,11 @@ class CourseViewModel @Inject constructor(
             CoroutineScope(Dispatchers.IO).launch {
                 newBucket.add(updateBucket(item = oldBucket[i]))
 
-                if (i == oldBucket.size - 1)
+                if (i == oldBucket.size - 1){
+                    diffOldNewBucket()
                     _buckets.value = newBucket
+                }
+
             }
         }
     }
@@ -96,12 +102,41 @@ class CourseViewModel @Inject constructor(
 
         CoroutineScope(Dispatchers.IO).launch {
             newBucket[index] = updateBucket(newBucket[index], mapHelper.parseCurrentDate(onDate))
+            diffOldNewBucket()
             _buckets.value = newBucket
         }
     }
 
     private fun diffOldNewBucket() {
-
+        for (i in 0 until newBucket.size) {
+            // decide typeFirst
+            when {
+                newBucket[i].firstElement?.Cur_OfficialRate!! > oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
+                    newBucket[i].typeFirst = 2
+                }
+                newBucket[i].firstElement?.Cur_OfficialRate!! > oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
+                    newBucket[i].typeFirst = 0
+                }
+                else -> {
+                    newBucket[i].typeFirst = 1
+                }
+            }
+            // decide typeSecond
+            when {
+                newBucket[i].secondElement?.Cur_OfficialRate!! > oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
+                    newBucket[i].typeSecond = 2
+                }
+                newBucket[i].secondElement?.Cur_OfficialRate!! > oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
+                    newBucket[i].typeSecond= 0
+                }
+                else -> {
+                    newBucket[i].typeSecond = 1
+                }
+            }
+            // decide coefficient
+            newBucket[i].coeffiecient = newBucket[i].firstElement?.Cur_OfficialRate!! /
+                    newBucket[i].secondElement?.Cur_OfficialRate!!
+        }
     }
 
 }
