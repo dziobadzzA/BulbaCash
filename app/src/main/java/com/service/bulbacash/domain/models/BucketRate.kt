@@ -1,3 +1,3 @@
 package com.service.bulbacash.domain.models
 
-data class BucketRate(val firstElement: Rate, val secondElement:Rate)
+data class BucketRate(var firstElement: Rate?, var secondElement:Rate?)
