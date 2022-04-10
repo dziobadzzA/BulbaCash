@@ -47,7 +47,7 @@ interface BankApiService {
     suspend fun getRateToday(@Path("id") id:Int): RatePojo?
 
     /**
-     * Get rate today
+     * Get rate date
      *  @param id Cur_ID
      *  @param ondate Date request
      */
