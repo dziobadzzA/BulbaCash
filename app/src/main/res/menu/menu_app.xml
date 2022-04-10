@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_course"
+            android:icon="@drawable/ic_baseline_attach_money_24"
+            android:title="@string/course_valuta" />
+        <item
+            android:id="@+id/nav_check"
+            android:icon="@drawable/ic_baseline_credit_card_24"
+            android:title="@string/Check" />
+        <item
+            android:id="@+id/nav_templates"
+            android:icon="@drawable/ic_baseline_add_card_24"
+            android:title="@string/Templates_money" />
+
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_baseline_history_24"
+            android:title="@string/History_balans" />
+
+        <item
+            android:id="@+id/nav_future_balans"
+            android:icon="@drawable/ic_baseline_add_task_24"
+            android:title="@string/Future_balans" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/About_app" />
+
+    </group>
+
+</menu>
