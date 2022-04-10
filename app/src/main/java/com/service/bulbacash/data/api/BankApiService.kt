@@ -2,6 +2,7 @@ package com.service.bulbacash.data.api
 
 import com.service.bulbacash.data.api.pojo.CurrencyPojo
 import com.service.bulbacash.data.api.pojo.RatePojo
+import com.service.bulbacash.data.api.pojo.RateShortPojo
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -54,5 +55,17 @@ interface BankApiService {
     suspend fun getRateDate(@Path("id") id:Int,
                             @Query("ondate") onDate:String
     ): RatePojo?
+
+    /**
+     * Get RatesShort
+     *  @param id Cur_ID
+     *  @param startDate StartDate request
+     *  @param endDate  EndDate request
+     */
+    @GET("exrates/rates/dynamics/{id}")
+    suspend fun getRateShort(@Path("id") id:Int,
+                            @Query("startDate") startDate:String,
+                            @Query("endDate") endDate:String
+    ): List<RateShortPojo>
 
 }
