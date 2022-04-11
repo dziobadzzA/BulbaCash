@@ -48,22 +48,23 @@ class CourseViewModel @Inject constructor(
     private var _buckets = MutableStateFlow(list.toMutableList())
     val buckets = _buckets.asStateFlow()
 
-    private var oldBucket = mutableListOf<BucketRate>()
-    private var newBucket = mutableListOf<BucketRate>()
+    private var oldBucket = listOf<BucketRate>()
+    private var newBucket = listOf<BucketRate>()
 
     fun getAllCourseToday() {
 
-        newBucket.clear()
-        oldBucket = _buckets.value
+        val tempBucket = mutableListOf<BucketRate>()
+        oldBucket = buckets.value.toList()
         _buckets.value = mutableListOf()
 
-        for (i in 0 until oldBucket.size) {
+        for (i in oldBucket.indices) {
             CoroutineScope(Dispatchers.IO).launch {
-                newBucket.add(updateBucket(item = oldBucket[i]))
+                tempBucket.add(updateBucket(item = oldBucket[i]))
 
-                if (i == oldBucket.size - 1){
+                if (i == oldBucket.size - 1) {
+                    newBucket = tempBucket.toList()
                     diffOldNewBucket()
-                    _buckets.value = newBucket
+                    _buckets.value = newBucket.toMutableList()
                 }
 
             }
@@ -95,15 +96,18 @@ class CourseViewModel @Inject constructor(
     }
 
     fun getItemCourseDate(bucket: BucketRate, onDate: String) {
-        val index =  _buckets.value.indexOf(bucket)
-        oldBucket =  _buckets.value
-        newBucket = oldBucket
+
+        val index =  buckets.value.indexOf(bucket)
+        val tempBucket = newBucket.toMutableList()
         _buckets.value = mutableListOf()
 
         CoroutineScope(Dispatchers.IO).launch {
-            newBucket[index] = updateBucket(newBucket[index], mapHelper.parseCurrentDate(onDate))
+            if (index >= 0) {
+                tempBucket[index] = updateBucket(newBucket[index], mapHelper.parseCurrentDate(onDate))
+            }
+            newBucket = tempBucket.toList()
             diffOldNewBucket()
-            _buckets.value = newBucket
+            _buckets.value = newBucket.toMutableList()
         }
     }
 
@@ -114,10 +118,10 @@ class CourseViewModel @Inject constructor(
                 newBucket[i].firstElement?.Cur_OfficialRate!! > oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
                     newBucket[i].typeFirst = 2
                 }
-                newBucket[i].firstElement?.Cur_OfficialRate!! > oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
+                newBucket[i].firstElement?.Cur_OfficialRate!! < oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
                     newBucket[i].typeFirst = 0
                 }
-                else -> {
+                newBucket[i].firstElement?.Cur_OfficialRate!! == oldBucket[i].firstElement?.Cur_OfficialRate!! ->  {
                     newBucket[i].typeFirst = 1
                 }
             }
@@ -126,10 +130,10 @@ class CourseViewModel @Inject constructor(
                 newBucket[i].secondElement?.Cur_OfficialRate!! > oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
                     newBucket[i].typeSecond = 2
                 }
-                newBucket[i].secondElement?.Cur_OfficialRate!! > oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
+                newBucket[i].secondElement?.Cur_OfficialRate!! < oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
                     newBucket[i].typeSecond= 0
                 }
-                else -> {
+                newBucket[i].secondElement?.Cur_OfficialRate!! == oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
                     newBucket[i].typeSecond = 1
                 }
             }
