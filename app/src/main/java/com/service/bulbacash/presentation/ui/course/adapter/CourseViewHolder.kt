@@ -27,7 +27,7 @@ class CourseViewHolder(
             secondCoefficientBy.text  = bucket.secondElement?.Cur_OfficialRate.toString()
             firstElement.text = "${bucket.firstElement?.Cur_Scale}  ${bucket.firstElement?.Cur_Name}"
             secondElement.text ="${bucket.secondElement?.Cur_Scale}  ${bucket.secondElement?.Cur_Name}"
-            coefficient.text = "%.2f".format(bucket.coeffiecient)
+            coefficient.text = "%.3f".format(bucket.coeffiecient)
             bannerCourse(bucket.typeFirst, firstLine)
             bannerCourse(bucket.typeFirst, secondLine)
         }

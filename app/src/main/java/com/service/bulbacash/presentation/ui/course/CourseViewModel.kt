@@ -23,52 +23,45 @@ class CourseViewModel @Inject constructor(
 ):ViewModel() {
 
 
-    val list = listOf(BucketRate(
-        firstElement = Rate(
-            Cur_ID = 431,
-            Date = "2022-04-10T00:00:00",
-            Cur_Abbreviation = "USD",
-            Cur_Scale = 1,
-            Cur_Name = "Доллар США",
-            Cur_OfficialRate = 2.80
-        ),
-        secondElement = Rate(
-            Cur_ID = 451,
-            Date = "2022-04-10T00:00:00",
-            Cur_Abbreviation = "EUR",
-            Cur_Scale = 1,
-            Cur_Name = "Евро",
-            Cur_OfficialRate = 3.00
-        ),
-        0.93,
-        1,
-        1
-    ))
-
-    private var _buckets = MutableStateFlow(list.toMutableList())
+    private var _buckets = MutableStateFlow(mutableListOf<BucketRate>())
     val buckets = _buckets.asStateFlow()
 
-    private var oldBucket = listOf<BucketRate>()
-    private var newBucket = listOf<BucketRate>()
+    private val oldBuckets = mutableListOf<BucketRate>()
 
     fun getAllCourseToday() {
 
-        val tempBucket = mutableListOf<BucketRate>()
-        oldBucket = buckets.value.toList()
+        // temp for storage value in time-process
+        insertAndClearOldValue(oldBuckets, buckets.value)
+        // null list items
         _buckets.value = mutableListOf()
 
-        for (i in oldBucket.indices) {
+        val newBuckets = mutableListOf<BucketRate>()
+
+        for (i in oldBuckets.indices) {
             CoroutineScope(Dispatchers.IO).launch {
-                tempBucket.add(updateBucket(item = oldBucket[i]))
-
-                if (i == oldBucket.size - 1) {
-                    newBucket = tempBucket.toList()
-                    diffOldNewBucket()
-                    _buckets.value = newBucket.toMutableList()
+                newBuckets.add(updateBucket(oldBuckets[i]))
+                if (i == oldBuckets.size - 1) {
+                    diffOldNewBucket(newBuckets, oldBuckets)
+                    _buckets.value = newBuckets
                 }
-
             }
         }
+
+    }
+
+    private fun insertOldValue(list:MutableList<BucketRate>, whatDo: MutableList<BucketRate>) {
+        for (item in whatDo) {
+            list.add(item.copy())
+        }
+    }
+
+    private fun clearOldValue(list:MutableList<BucketRate>) {
+        list.clear()
+    }
+
+    private fun insertAndClearOldValue(list:MutableList<BucketRate>, whatDo: MutableList<BucketRate>) {
+        clearOldValue(list = list)
+        insertOldValue(list = list, whatDo)
     }
 
     private suspend fun updateBucket(item: BucketRate):BucketRate
@@ -98,48 +91,40 @@ class CourseViewModel @Inject constructor(
     fun getItemCourseDate(bucket: BucketRate, onDate: String) {
 
         val index =  buckets.value.indexOf(bucket)
-        val tempBucket = newBucket.toMutableList()
+        val newBuckets = buckets.value.toMutableList()
+
+        insertAndClearOldValue(oldBuckets, buckets.value)
         _buckets.value = mutableListOf()
 
         CoroutineScope(Dispatchers.IO).launch {
             if (index >= 0) {
-                tempBucket[index] = updateBucket(newBucket[index], mapHelper.parseCurrentDate(onDate))
+                newBuckets[index] = updateBucket(newBuckets[index], mapHelper.parseCurrentDate(onDate))
             }
-            newBucket = tempBucket.toList()
-            diffOldNewBucket()
-            _buckets.value = newBucket.toMutableList()
+            diffOldNewBucket(newBuckets, oldBuckets)
+            _buckets.value = newBuckets
         }
     }
 
-    private fun diffOldNewBucket() {
-        for (i in 0 until newBucket.size) {
+    private fun diffOldNewBucket(currentBuckets: MutableList<BucketRate>, oldBuckets: MutableList<BucketRate>) {
+        for (i in currentBuckets.indices) {
             // decide typeFirst
-            when {
-                newBucket[i].firstElement?.Cur_OfficialRate!! > oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
-                    newBucket[i].typeFirst = 2
-                }
-                newBucket[i].firstElement?.Cur_OfficialRate!! < oldBucket[i].firstElement?.Cur_OfficialRate!! -> {
-                    newBucket[i].typeFirst = 0
-                }
-                newBucket[i].firstElement?.Cur_OfficialRate!! == oldBucket[i].firstElement?.Cur_OfficialRate!! ->  {
-                    newBucket[i].typeFirst = 1
-                }
-            }
+            currentBuckets[i].typeFirst = choiceMethod(current = currentBuckets[i].firstElement!!,
+                old = oldBuckets[i].firstElement!!)
             // decide typeSecond
-            when {
-                newBucket[i].secondElement?.Cur_OfficialRate!! > oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
-                    newBucket[i].typeSecond = 2
-                }
-                newBucket[i].secondElement?.Cur_OfficialRate!! < oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
-                    newBucket[i].typeSecond= 0
-                }
-                newBucket[i].secondElement?.Cur_OfficialRate!! == oldBucket[i].secondElement?.Cur_OfficialRate!! -> {
-                    newBucket[i].typeSecond = 1
-                }
-            }
+            currentBuckets[i].typeSecond = choiceMethod(current = currentBuckets[i].secondElement!!,
+                old = oldBuckets[i].secondElement!!)
             // decide coefficient
-            newBucket[i].coeffiecient = newBucket[i].firstElement?.Cur_OfficialRate!! /
-                    newBucket[i].secondElement?.Cur_OfficialRate!!
+            currentBuckets[i].coeffiecient = currentBuckets[i].firstElement?.Cur_OfficialRate!! /
+                    currentBuckets[i].secondElement?.Cur_OfficialRate!!
+        }
+    }
+
+    private fun choiceMethod(current: Rate, old: Rate): Int {
+        return when {
+            current.Cur_OfficialRate > old.Cur_OfficialRate ->  { 2 }
+            current.Cur_OfficialRate < old.Cur_OfficialRate ->  { 0 }
+            current.Cur_OfficialRate == old.Cur_OfficialRate -> { 1 }
+            else -> { 0 }
         }
     }
 
