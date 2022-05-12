@@ -1,5 +1,6 @@
 package com.service.bulbacash.presentation.ui.course
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.service.bulbacash.domain.models.BucketRate
 import com.service.bulbacash.presentation.ui.course.adapter.CourseAdapter
 import com.service.bulbacash.presentation.ui.course.adapter.CourseListener
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
@@ -28,13 +30,13 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
         binding?.apply {
             listBucket.adapter = adapter
             viewModel.getAllCourseToday()
-        }
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.buckets.collect {
-                adapter?.submitList(it)
+            lifecycleScope.launchWhenCreated {
+                viewModel.buckets.collect {
+                    adapter?.submitList(it)
+                }
             }
         }
+
     }
 
     override fun onDestroyView() {
@@ -42,8 +44,18 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
         binding = null
     }
 
-    override fun clickItemCourseDate(bucket: BucketRate, onDate: String) {
-        viewModel.getItemCourseDate(bucket = bucket, onDate = onDate)
+    override fun clickItemCourseDate(bucket: BucketRate) {
+        val date: Calendar = Calendar.getInstance()
+        val picker = DatePickerDialog(
+            requireContext(), { _, year, month, day ->
+                viewModel.getItemCourseDate(bucket = bucket, onDate = "${year}-${month+1}-${day}")
+            },
+            date.get(Calendar.YEAR),
+            date.get(Calendar.MONTH),
+            date.get(Calendar.DAY_OF_MONTH),
+        )
+        picker.datePicker.maxDate = System.currentTimeMillis()
+        picker.show()
     }
 
     override fun clickItemCourseGraph(bucket: BucketRate) {

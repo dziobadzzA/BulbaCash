@@ -1,7 +1,7 @@
 package com.service.bulbacash.data.mappers
 
 import com.service.bulbacash.data.api.pojo.CurrencyPojo
-import com.service.bulbacash.data.utils.Helper
+import com.service.bulbacash.di.Helper
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.utill.Mapper
 

@@ -22,5 +22,4 @@ object UseCaseModule {
         return CourseDateUseCase(repository = repository)
     }
 
-
 }
