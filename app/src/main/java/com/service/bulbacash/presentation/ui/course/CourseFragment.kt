@@ -60,5 +60,6 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
 
     override fun clickItemCourseGraph(bucket: BucketRate) {
        // TODO get graph
+        val a = 0
     }
 }
