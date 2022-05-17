@@ -41,7 +41,7 @@ class CourseViewModel @Inject constructor(
         ),
         0.93,
         1,
-        1
+        1, 0
     ))
 
     private var _buckets = MutableStateFlow(list.toMutableList()) // MutableStateFlow(mutableListOf<BucketRate>())

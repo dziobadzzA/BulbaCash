@@ -6,11 +6,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseFragmentBinding
 import com.service.bulbacash.domain.models.BucketRate
 import com.service.bulbacash.presentation.ui.course.adapter.CourseAdapter
 import com.service.bulbacash.presentation.ui.course.adapter.CourseListener
+import com.service.bulbacash.presentation.ui.graph.GraphFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -59,7 +61,9 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
     }
 
     override fun clickItemCourseGraph(bucket: BucketRate) {
-       // TODO get graph
-        val a = 0
+        findNavController().navigate(
+           CourseFragmentDirections.actionCourseFragmentToGraphFragment()
+        )
     }
+
 }

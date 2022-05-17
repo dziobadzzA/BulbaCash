@@ -16,7 +16,7 @@ interface BulbaCashDAO {
     suspend fun insertRate(token: RateEntity)
 
     @Query("SELECT * FROM rate WHERE id = :id")
-    suspend fun getRate(id: Long): Flow<RateEntity>
+    fun getRate(id: Long): Flow<RateEntity>
 
     @Update
     suspend fun updateToken(rate: RateEntity)
