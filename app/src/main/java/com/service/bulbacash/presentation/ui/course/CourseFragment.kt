@@ -66,7 +66,7 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
 
     override fun clickItemCourseGraph(bucket: BucketRate) {
         findNavController().navigate(
-           CourseFragmentDirections.actionCourseFragmentToGraphFragment()
+           CourseFragmentDirections.actionCourseFragmentToGraphFragment(bucket.ID)
         )
     }
 

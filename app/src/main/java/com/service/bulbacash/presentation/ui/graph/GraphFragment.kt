@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseGraphLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +20,11 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = CourseGraphLayoutBinding.bind(view)
+
+        lifecycleScope.launchWhenCreated {
+            val bundle = GraphFragmentArgs.fromBundle(requireArguments())
+            viewModel.getIDBuckets(bundle.idBucket)
+        }
 
         binding?.apply {
 
