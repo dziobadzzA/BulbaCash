@@ -22,8 +22,29 @@ class CourseViewModel @Inject constructor(
     private val mapHelper: Helper
 ):ViewModel() {
 
+    val list = listOf(BucketRate(
+        firstElement = Rate(
+            Cur_ID = 431,
+            Date = "2022-04-10T00:00:00",
+            Cur_Abbreviation = "USD",
+            Cur_Scale = 1,
+            Cur_Name = "Доллар США",
+            Cur_OfficialRate = 2.80
+        ),
+        secondElement = Rate(
+            Cur_ID = 451,
+            Date = "2022-04-10T00:00:00",
+            Cur_Abbreviation = "EUR",
+            Cur_Scale = 1,
+            Cur_Name = "Евро",
+            Cur_OfficialRate = 3.00
+        ),
+        0.93,
+        1,
+        1, 0
+    ))
 
-    private var _buckets = MutableStateFlow(mutableListOf<BucketRate>())
+    private var _buckets = MutableStateFlow(list.toMutableList()) // MutableStateFlow(mutableListOf<BucketRate>())
     val buckets = _buckets.asStateFlow()
 
     private val oldBuckets = mutableListOf<BucketRate>()

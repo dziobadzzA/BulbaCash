@@ -7,8 +7,7 @@ import com.service.bulbacash.domain.models.BucketRate
 class CourseDiffCallback: DiffUtil.ItemCallback<BucketRate>() {
 
     override fun areItemsTheSame(oldItem: BucketRate, newItem: BucketRate): Boolean {
-        return  oldItem.firstElement?.Cur_ID == newItem.firstElement?.Cur_ID &&
-                oldItem.secondElement?.Cur_ID == newItem.secondElement?.Cur_ID
+        return  oldItem.ID == newItem.ID
     }
 
     override fun areContentsTheSame(oldItem: BucketRate, newItem: BucketRate): Boolean {

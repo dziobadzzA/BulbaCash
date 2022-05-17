@@ -8,5 +8,15 @@
     <fragment
         android:id="@+id/courseFragment"
         android:name="com.service.bulbacash.presentation.ui.course.CourseFragment"
-        tools:layout="@layout/course_fragment"/>
+        tools:layout="@layout/course_fragment">
+        <action
+            android:id="@+id/action_courseFragment_to_graphFragment"
+            app:destination="@id/graphFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/graphFragment"
+        android:name="com.service.bulbacash.presentation.ui.graph.GraphFragment"
+        android:layout="@layout/course_graph_layout">
+    </fragment>
+
 </navigation>
