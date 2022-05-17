@@ -1,6 +1,7 @@
 package com.service.bulbacash.presentation.ui.course
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,9 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseFragmentBinding
 import com.service.bulbacash.domain.models.BucketRate
+import com.service.bulbacash.presentation.ui.NotArrow
 import com.service.bulbacash.presentation.ui.course.adapter.CourseAdapter
 import com.service.bulbacash.presentation.ui.course.adapter.CourseListener
-import com.service.bulbacash.presentation.ui.graph.GraphFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -23,6 +24,8 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
 
     private val viewModel: CourseViewModel by viewModels()
     private var adapter: CourseAdapter? = null
+
+    private lateinit var notArrow: NotArrow
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,6 +42,7 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
             }
         }
 
+        notArrow.notArrow()
     }
 
     override fun onDestroyView() {
@@ -64,6 +68,11 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
         findNavController().navigate(
            CourseFragmentDirections.actionCourseFragmentToGraphFragment()
         )
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        notArrow =  context as NotArrow
     }
 
 }

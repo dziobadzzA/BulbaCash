@@ -22,11 +22,11 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
         binding?.apply {
 
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
+
 }

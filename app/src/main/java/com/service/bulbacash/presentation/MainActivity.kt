@@ -8,16 +8,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.service.bulbacash.R
-import com.service.bulbacash.data.mappers.RatePojoToRate
-import com.service.bulbacash.data.repositories.CourseDayImpl
 import com.service.bulbacash.databinding.ActivityMainBinding
-import com.service.bulbacash.di.NetworkModule
+import com.service.bulbacash.presentation.ui.NotArrow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NotArrow {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -42,11 +38,17 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        // supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        notArrow()
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    override fun notArrow() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+    }
+
 }
