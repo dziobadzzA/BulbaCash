@@ -1,6 +1,5 @@
 package com.service.bulbacash.data.mappers
 
-import androidx.room.ColumnInfo
 import com.service.bulbacash.data.api.pojo.RatePojo
 import com.service.bulbacash.data.api.pojo.RateShortPojo
 import com.service.bulbacash.data.db.entity.RateEntity

@@ -5,5 +5,6 @@ data class BucketRate(
     var secondElement:Rate?,
     var coeffiecient: Double,
     var typeFirst: Int,
-    var typeSecond: Int
+    var typeSecond: Int,
+    var ID: Long
     )
