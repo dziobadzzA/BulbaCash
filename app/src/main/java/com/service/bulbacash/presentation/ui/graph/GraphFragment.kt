@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseGraphLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +26,19 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
         }
 
         binding?.apply {
+
+            startTime.updateDate(
+                startTime.year,
+                startTime.month,
+                startTime.dayOfMonth - 1
+            )
+
+            endTime.updateDate(
+                endTime.year,
+                endTime.month,
+                endTime.dayOfMonth
+            )
+
 
         }
     }

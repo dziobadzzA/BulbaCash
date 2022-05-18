@@ -13,7 +13,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <DatePicker
-        android:id="@+id/startTime"
+        android:id="@+id/endTime"
         style="@style/dateTimePickerStyle"
         android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <DatePicker
-        android:id="@+id/endTime"
+        android:id="@+id/startTime"
         style="@style/dateTimePickerStyle"
         android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
