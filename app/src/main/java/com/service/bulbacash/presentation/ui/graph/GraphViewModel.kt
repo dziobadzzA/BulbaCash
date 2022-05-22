@@ -101,7 +101,16 @@ class GraphViewModel @Inject constructor(
         return templateEqualsValue.templateReturnMaxValue(
             x = x.Cur_OfficialRate,
             y = y.Cur_OfficialRate
-        )
+        ) + 1
+    }
+
+    fun returnMinValue(): Double {
+        val x: RateShort = Collections.min(listRateShortX.value)
+        val y: RateShort = Collections.min(listRateShortY.value)
+        return templateEqualsValue.templateReturnMaxValue(
+            x = x.Cur_OfficialRate,
+            y = y.Cur_OfficialRate
+        ) - 0.1
     }
 
 }

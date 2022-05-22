@@ -1,14 +1,17 @@
 package com.service.bulbacash.presentation.ui.graph
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseGraphLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class GraphFragment: Fragment(R.layout.course_graph_layout) {
@@ -91,22 +94,33 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
 
     private fun drawPoints(line: CheckLine){
 
-        binding?.apply {
+        with(Dispatchers.Main) {
+            binding?.apply {
 
-            val points =  LineGraphSeries(
-                viewModel.convertRateShortToPointList(
-                    viewModel.returnListPoint(line = line)).toTypedArray()
-            )
-            //graph.removeAllSeries()
-            setSettingsLine()
-            graph.addSeries(points)
+                val points =  LineGraphSeries(
+                    viewModel.convertRateShortToPointList(
+                        viewModel.returnListPoint(line = line)).toTypedArray()
+                )
+                //graph.removeAllSeries()
+                setSettingsLine()
+                when(line) {
+                    CheckLine.X -> {
+                        setStyleX(series = points)
+                    }
+                    CheckLine.Y -> {
+                        setStyleY(series = points)
+                    }
+                }
+                graph.addSeries(points)
 
+            }
         }
+
     }
 
     private fun setSettingsLine() {
         setSettingLineX(viewModel.returnMaxDay())
-        setSettingLineY(viewModel.returnMaxValue())
+        setSettingLineY(viewModel.returnMinValue(), viewModel.returnMaxValue())
     }
 
     private fun setSettingLineX(maxDay: Double) {
@@ -117,12 +131,28 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
         }
     }
 
-    private fun setSettingLineY(maxValue: Double) {
+    private fun setSettingLineY(minValue: Double, maxValue: Double) {
         binding?.apply {
             graph.viewport.isYAxisBoundsManual = true
-            graph.viewport.setMinY(0.0)
+            graph.viewport.setMinY(minValue)
             graph.viewport.setMaxY(maxValue)
         }
+    }
+
+    private fun setStyleX(series: LineGraphSeries<DataPoint>) {
+        series.color = Color.GREEN
+        series.backgroundColor = R.color.backX
+        series.isDrawDataPoints = true
+        series.dataPointsRadius = 2F
+        series.thickness = 2
+    }
+
+    private fun setStyleY(series: LineGraphSeries<DataPoint>) {
+        series.color = Color.RED
+        series.backgroundColor = R.color.backY
+        series.isDrawDataPoints = true
+        series.dataPointsRadius = 2F
+        series.thickness = 2
     }
 
 }
