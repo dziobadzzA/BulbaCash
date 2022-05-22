@@ -7,6 +7,8 @@ import com.service.bulbacash.domain.models.RateShort
 import com.service.bulbacash.domain.usecases.CoursePeriodUseCase
 import com.service.bulbacash.di.DatePeriod
 import com.service.bulbacash.di.TemplateEqualsValue
+import com.service.bulbacash.domain.models.BucketRate
+import com.service.bulbacash.domain.models.Rate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +27,7 @@ class GraphViewModel @Inject constructor(
     private val templateEqualsValue: TemplateEqualsValue
 ): ViewModel() {
 
-    private var ID = MutableStateFlow<Long?>(null)
+    lateinit var bucket: BucketRate
     private var startTime: String? = null
     private var endTime: String? = null
 
@@ -35,8 +37,31 @@ class GraphViewModel @Inject constructor(
     private var _listRateShortY = MutableStateFlow(listOf<RateShort>())
     val listRateShortY = _listRateShortY.asStateFlow()
 
+    private val tempBucket = BucketRate(
+        firstElement = Rate(
+            Cur_ID = 431,
+            Date = "2022-04-10T00:00:00",
+            Cur_Abbreviation = "USD",
+            Cur_Scale = 1,
+            Cur_Name = "Доллар США",
+            Cur_OfficialRate = 2.80
+        ),
+        secondElement = Rate(
+            Cur_ID = 451,
+            Date = "2022-04-10T00:00:00",
+            Cur_Abbreviation = "EUR",
+            Cur_Scale = 1,
+            Cur_Name = "Евро",
+            Cur_OfficialRate = 3.00
+        ),
+        0.93,
+        1,
+        1, 0
+    )
+
     fun getIDBuckets(id: Long) {
-        ID.value = id
+        // TODO find bucket
+        bucket = tempBucket
     }
 
     fun setStartAndEndDatePeriod(

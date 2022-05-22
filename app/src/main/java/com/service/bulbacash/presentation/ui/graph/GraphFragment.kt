@@ -4,15 +4,18 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginRight
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseGraphLayoutBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
+import kotlin.math.absoluteValue
 
 @AndroidEntryPoint
 class GraphFragment: Fragment(R.layout.course_graph_layout) {
@@ -143,6 +146,7 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     }
 
     private fun setStyleX(series: LineGraphSeries<DataPoint>) {
+        series.title = viewModel.bucket.firstElement?.Cur_Abbreviation
         series.color = Color.RED
         series.isDrawBackground = true
         series.isDrawDataPoints = true
@@ -153,6 +157,7 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     }
 
     private fun setStyleY(series: LineGraphSeries<DataPoint>) {
+        series.title = viewModel.bucket.secondElement?.Cur_Abbreviation
         series.color = Color.GREEN
         series.isDrawBackground = true
         series.isDrawDataPoints = true
@@ -170,6 +175,10 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
             graph.viewport.setScrollableY(true)
             graph.viewport.isYAxisBoundsManual = true
             graph.viewport.isXAxisBoundsManual = true
+            graph.legendRenderer.isVisible = true
+            graph.titleTextSize = 3F
+            graph.legendRenderer.margin = 50
+            graph.legendRenderer.align = LegendRenderer.LegendAlign.TOP
         }
     }
 
