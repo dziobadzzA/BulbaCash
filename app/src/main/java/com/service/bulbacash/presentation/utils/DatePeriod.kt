@@ -1,7 +1,13 @@
 package com.service.bulbacash.presentation.utils
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import java.lang.Exception
 
+@Module
+@InstallIn(SingletonComponent::class)
 object DatePeriod  {
 
     fun setDatePeriod(year:Int, month: Int, day: Int):String  = "${year}-${month}-${day}"
@@ -14,4 +20,6 @@ object DatePeriod  {
         }
     }
 
+    @Provides
+    fun provideDatePeriod(): DatePeriod = DatePeriod
 }
