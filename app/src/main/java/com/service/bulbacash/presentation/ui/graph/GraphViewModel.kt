@@ -138,4 +138,7 @@ class GraphViewModel @Inject constructor(
         )
     }
 
+    fun returnShareTitle() ="${bucket.firstElement?.Cur_Abbreviation} " +
+            "${bucket.secondElement?.Cur_Abbreviation}"
+
 }
