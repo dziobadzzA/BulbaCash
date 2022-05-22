@@ -1,4 +1,4 @@
-package com.service.bulbacash.presentation.utils
+package com.service.bulbacash.di
 
 import dagger.Module
 import dagger.Provides

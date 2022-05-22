@@ -28,11 +28,6 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
 
         binding?.apply {
 
-            graph.viewport.isScalable = true
-            graph.viewport.isScrollable = true
-            graph.viewport.setScalableY(true)
-            graph.viewport.setScrollableY(true)
-
             viewModel.setStartAndEndDatePeriod(
                 yearStart = startTime.year,
                 monthStart = startTime.month,
@@ -103,8 +98,30 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
                     viewModel.returnListPoint(line = line)).toTypedArray()
             )
             //graph.removeAllSeries()
+            setSettingsLine()
             graph.addSeries(points)
 
+        }
+    }
+
+    private fun setSettingsLine() {
+        setSettingLineX(viewModel.returnMaxDay())
+        setSettingLineY(viewModel.returnMaxValue())
+    }
+
+    private fun setSettingLineX(maxDay: Double) {
+        binding?.apply {
+            graph.viewport.isXAxisBoundsManual = true
+            graph.viewport.setMinX(0.0)
+            graph.viewport.setMaxX(maxDay)
+        }
+    }
+
+    private fun setSettingLineY(maxValue: Double) {
+        binding?.apply {
+            graph.viewport.isYAxisBoundsManual = true
+            graph.viewport.setMinY(0.0)
+            graph.viewport.setMaxY(maxValue)
         }
     }
 
