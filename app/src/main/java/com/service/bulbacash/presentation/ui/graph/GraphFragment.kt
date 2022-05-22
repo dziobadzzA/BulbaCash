@@ -3,6 +3,7 @@ package com.service.bulbacash.presentation.ui.graph
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -80,6 +81,8 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
             }
         }
 
+        initStyleGraph()
+
     }
 
     override fun onDestroyView() {
@@ -134,25 +137,40 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     private fun setSettingLineY(minValue: Double, maxValue: Double) {
         binding?.apply {
             graph.viewport.isYAxisBoundsManual = true
-            graph.viewport.setMinY(minValue)
+            graph.viewport.setMinY(minValue.toInt().toDouble())
             graph.viewport.setMaxY(maxValue)
         }
     }
 
     private fun setStyleX(series: LineGraphSeries<DataPoint>) {
-        series.color = Color.GREEN
-        series.backgroundColor = R.color.backX
+        series.color = Color.RED
+        series.isDrawBackground = true
         series.isDrawDataPoints = true
-        series.dataPointsRadius = 2F
-        series.thickness = 2
+        series.backgroundColor =  ContextCompat.getColor(requireContext().applicationContext,
+            R.color.backX)
+        series.dataPointsRadius = 3F
+        series.thickness = 6
     }
 
     private fun setStyleY(series: LineGraphSeries<DataPoint>) {
-        series.color = Color.RED
-        series.backgroundColor = R.color.backY
+        series.color = Color.GREEN
+        series.isDrawBackground = true
         series.isDrawDataPoints = true
-        series.dataPointsRadius = 2F
-        series.thickness = 2
+        series.backgroundColor = ContextCompat.getColor(requireContext().applicationContext,
+            R.color.backY)
+        series.dataPointsRadius = 3F
+        series.thickness = 6
+    }
+
+    private fun initStyleGraph() {
+        binding?.apply {
+            graph.viewport.isScrollable = true
+            graph.viewport.isScalable = true
+            graph.viewport.setScalableY(true)
+            graph.viewport.setScrollableY(true)
+            graph.viewport.isYAxisBoundsManual = true
+            graph.viewport.isXAxisBoundsManual = true
+        }
     }
 
 }

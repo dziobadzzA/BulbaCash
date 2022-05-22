@@ -110,7 +110,7 @@ class GraphViewModel @Inject constructor(
         return templateEqualsValue.templateReturnMaxValue(
             x = x.Cur_OfficialRate,
             y = y.Cur_OfficialRate
-        ) - 0.1
+        )
     }
 
 }
