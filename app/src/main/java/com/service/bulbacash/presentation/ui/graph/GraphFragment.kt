@@ -12,6 +12,7 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseGraphLayoutBinding
+import com.service.bulbacash.presentation.ui.DoubleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 
@@ -33,11 +34,13 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
 
         binding?.apply {
 
-            graph.setOnClickListener {
-                graph.takeSnapshotAndShare(requireContext(),
-                    resources.getString(R.string.graphFileShare),
-                    viewModel.returnShareTitle())
-            }
+            graph.setOnClickListener(object : DoubleClickListener() {
+                override fun onDoubleClick(v: View?) {
+                    graph.takeSnapshotAndShare(requireContext(),
+                        resources.getString(R.string.graphFileShare),
+                        viewModel.returnShareTitle())
+                }
+            })
 
             viewModel.setStartAndEndDatePeriod(
                 yearStart = startTime.year,
