@@ -101,31 +101,36 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     }
 
     private fun checkAndDrawPoints(line: CheckLine) {
-        if (viewModel.checkListXY(line))
-            drawPoints(line=line)
+        drawPoints(line=line)
     }
 
-    private fun drawPoints(line: CheckLine){
+    private fun drawPoints(line: CheckLine) {
 
-        with(Dispatchers.Main) {
-            binding?.apply {
+        binding?.apply {
 
-                val points =  LineGraphSeries(
+            with(Dispatchers.IO) {
+
+                val points = LineGraphSeries(
                     viewModel.convertRateShortToPointList(
-                        viewModel.returnListPoint(line = line)).toTypedArray()
+                        viewModel.returnListPoint(line = line)
+                    ).toTypedArray()
                 )
-                //graph.removeAllSeries()
-                setSettingsLine()
-                when(line) {
-                    CheckLine.X -> {
-                        setStyleX(series = points)
-                    }
-                    CheckLine.Y -> {
-                        setStyleY(series = points)
-                    }
-                }
-                graph.addSeries(points)
 
+                if (viewModel.checkListXY(line)) {
+                    //graph.removeAllSeries()
+                    setSettingsLine()
+
+                    when (line) {
+                        CheckLine.X -> {
+                            setStyleX(series = points)
+                        }
+                        CheckLine.Y -> {
+                            setStyleY(series = points)
+                        }
+                    }
+
+                    graph.addSeries(points)
+                }
             }
         }
 

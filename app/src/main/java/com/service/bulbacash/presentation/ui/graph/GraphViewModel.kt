@@ -88,7 +88,11 @@ class GraphViewModel @Inject constructor(
     }
 
     fun checkPoint() {
-        checkList(431, 451)
+        bucket.firstElement?.let {
+                first -> bucket.secondElement?.let {
+                    second -> checkList(first.Cur_ID, second.Cur_ID)
+                }
+        }
     }
 
     fun convertRateShortToPointList(list: List<RateShort>): List<DataPoint> {
