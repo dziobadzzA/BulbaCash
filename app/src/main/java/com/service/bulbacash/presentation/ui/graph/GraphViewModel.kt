@@ -3,6 +3,9 @@ package com.service.bulbacash.presentation.ui.graph
 import android.content.Context
 import com.jjoe64.graphview.series.DataPoint
 import androidx.lifecycle.ViewModel
+import com.jjoe64.graphview.series.DataPointInterface
+import com.jjoe64.graphview.series.LineGraphSeries
+import com.jjoe64.graphview.series.Series
 import com.service.bulbacash.domain.models.RateShort
 import com.service.bulbacash.domain.usecases.CoursePeriodUseCase
 import com.service.bulbacash.di.DatePeriod
@@ -18,6 +21,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class GraphViewModel @Inject constructor(
@@ -104,12 +108,8 @@ class GraphViewModel @Inject constructor(
         return arrayList.toList()
     }
 
-    fun checkListXY(line: CheckLine): Boolean {
-        return when (line) {
-            CheckLine.X -> listRateShortX.value.isNotEmpty()
-            CheckLine.Y -> listRateShortY.value.isNotEmpty()
-        }
-    }
+    fun checkListXY(): Boolean = listRateShortX.value.isNotEmpty() && listRateShortY.value.isNotEmpty()
+
 
     fun returnListPoint(line: CheckLine): List<RateShort> {
         return when (line) {
@@ -144,5 +144,22 @@ class GraphViewModel @Inject constructor(
 
     fun returnShareTitle() ="${bucket.firstElement?.Cur_Abbreviation} " +
             "${bucket.secondElement?.Cur_Abbreviation}"
+
+    fun findIndexSeries(list: MutableList<Series<DataPointInterface>>, line: CheckLine): Int {
+        val removeName = when(line) {
+            CheckLine.X -> {
+                bucket.firstElement!!.Cur_Abbreviation
+            }
+            CheckLine.Y -> {
+                bucket.secondElement!!.Cur_Abbreviation
+            }
+        }
+        for (i in 0 until list.size) {
+            if (list[i].title == removeName) {
+                return i
+            }
+        }
+        return -1
+    }
 
 }

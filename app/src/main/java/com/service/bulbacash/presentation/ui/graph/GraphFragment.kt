@@ -101,7 +101,8 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     }
 
     private fun checkAndDrawPoints(line: CheckLine) {
-        drawPoints(line=line)
+        if (viewModel.checkListXY())
+            drawPoints(line=line)
     }
 
     private fun drawPoints(line: CheckLine) {
@@ -116,8 +117,15 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
                     ).toTypedArray()
                 )
 
-                if (viewModel.checkListXY(line)) {
+                if (viewModel.checkListXY()) {
+
                     //graph.removeAllSeries()
+                    if (graph.series.size == 2) {
+                        val index = viewModel.findIndexSeries(graph.series ,line=line)
+                        if (index >= 0)
+                            graph.removeSeries(graph.series[index])
+                    }
+
                     setSettingsLine()
 
                     when (line) {
