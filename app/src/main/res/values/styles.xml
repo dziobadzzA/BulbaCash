@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="dateTimePickerStyleLand" parent="@style/dateTimePickerStyleLand" tools:ignore="ResourceCycle">
+        <item name="android:layout_width">290dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:calendarViewShown">false</item>
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="dateTimePickerStyle" parent="@style/dateTimePickerStyle" tools:ignore="ResourceCycle">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:calendarViewShown">false</item>
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+</resources>

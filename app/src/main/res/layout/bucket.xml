@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/purple_700"
+    android:padding="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bucketContainer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/purple_500"
+        android:padding="6dp">
+
+
+        <TextView
+            android:id="@+id/coefficient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/coefficient"
+            android:textStyle="normal|bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/first_coefficient_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/defaultValueUSA"
+            android:textStyle="normal|bold"
+            app:layout_constraintEnd_toStartOf="@+id/first_line"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/second_coefficient_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:textStyle="normal|bold"
+            android:text="@string/defaultValueEU"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/second_line"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/first_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/defaultUSA"
+            app:layout_constraintStart_toEndOf="@+id/coefficient"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/second_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/defaultEU"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/coefficient"
+            tools:ignore="MissingConstraints" />
+
+        <ImageButton
+            android:id="@+id/button_datetime"
+            android:layout_width="@dimen/bucket_icon"
+            android:layout_height="@dimen/bucket_icon"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@color/purple_500"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_access_time_filled_24" />
+
+        <ImageButton
+            android:id="@+id/button_graphics"
+            android:layout_width="@dimen/bucket_icon"
+            android:layout_height="@dimen/bucket_icon"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_datetime"
+            app:layout_constraintVertical_bias="0.937"
+            app:srcCompat="@drawable/ic_baseline_timeline_24" />
+
+        <ImageView
+            android:id="@+id/first_line"
+            android:layout_width="@dimen/bucket_icon"
+            android:layout_height="@dimen/bucket_icon"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/purple_500"
+            app:layout_constraintEnd_toStartOf="@+id/button_datetime"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/second_line"
+            android:layout_width="@dimen/bucket_icon"
+            android:layout_height="@dimen/bucket_icon"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_graphics"
+            app:layout_constraintTop_toBottomOf="@+id/first_line"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/second_element"
+            app:srcCompat="@drawable/europeanunion" />
+
+        <ImageView
+            android:id="@+id/first_banner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/first_element"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/us" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

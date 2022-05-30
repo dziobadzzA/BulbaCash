@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="coefficient">1.0</string>
+    <string name="defaultUSA">1 Доллар США</string>
+    <string name="defaultBLR">1 Белорусский рубль</string>
+    <string name="defaultValueUSA">2.82</string>
+    <string name="defaultValueBLR">1.00</string>
+    <string name="graphFileShare">graphShare</string>
+</resources>
