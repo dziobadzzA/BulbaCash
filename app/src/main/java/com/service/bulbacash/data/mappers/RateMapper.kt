@@ -3,6 +3,7 @@ package com.service.bulbacash.data.mappers
 import com.service.bulbacash.data.api.pojo.RatePojo
 import com.service.bulbacash.data.api.pojo.RateShortPojo
 import com.service.bulbacash.data.db.entity.RateEntity
+import com.service.bulbacash.di.TemplateEqualsValue
 import com.service.bulbacash.domain.models.Rate
 import com.service.bulbacash.domain.models.RateShort
 import com.service.bulbacash.domain.utill.Mapper
@@ -21,12 +22,15 @@ class RatePojoToRate : Mapper<RatePojo, Rate> {
     }
 }
 
-class RateShortPojoToRateShort : Mapper<RateShortPojo, RateShort> {
+class RateShortPojoToRateShort(private val templateEqualsValue: TemplateEqualsValue) :
+    Mapper<RateShortPojo, RateShort> {
+
     override fun map(from: RateShortPojo): RateShort {
         return RateShort(
             Cur_ID = from.Cur_ID,
             Date = from.Date,
-            Cur_OfficialRate = from.Cur_OfficialRate
+            Cur_OfficialRate = from.Cur_OfficialRate,
+            mapTemplateEqualsValue = templateEqualsValue
         )
     }
 }
