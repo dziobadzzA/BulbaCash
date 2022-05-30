@@ -14,8 +14,8 @@ import dagger.hilt.components.SingletonComponent
 object MapperModule {
 
     @Provides
-    fun provideCurrencyPojoToCurrency(): CurrencyPojoToCurrency {
-        return CurrencyPojoToCurrency()
+    fun provideCurrencyPojoToCurrency(mapHelper:Helper): CurrencyPojoToCurrency {
+        return CurrencyPojoToCurrency(mapHelper = mapHelper)
     }
 
     @Provides

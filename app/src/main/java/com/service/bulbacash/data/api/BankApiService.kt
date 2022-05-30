@@ -13,7 +13,7 @@ interface BankApiService {
      * Get all currency
      */
     @GET("exrates/currencies")
-    suspend fun getCurrency(): List<CurrencyPojo?>
+    suspend fun getCurrency(): List<CurrencyPojo>
 
     /**
      * Get current currency

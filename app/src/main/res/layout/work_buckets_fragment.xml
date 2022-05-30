@@ -8,10 +8,8 @@
     <Spinner
         android:id="@+id/spinner_first"
         android:layout_width="@dimen/weight_spinner_bucket"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.195" />
@@ -22,8 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_first"
         app:layout_constraintVertical_bias="0.026" />
@@ -42,5 +38,29 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_second"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <ImageView
+        android:id="@+id/image_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toEndOf="@+id/spinner_second"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.313"
+        app:srcCompat="@drawable/ru" />
+
+    <ImageView
+        android:id="@+id/image_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.586"
+        app:layout_constraintStart_toEndOf="@+id/spinner_first"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.201"
+        app:srcCompat="@drawable/am" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

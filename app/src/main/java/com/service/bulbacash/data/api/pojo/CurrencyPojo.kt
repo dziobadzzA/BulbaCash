@@ -17,7 +17,7 @@ data class CurrencyPojo(
     @Json(name = "Cur_Name_BelMulti") val Cur_Name_BelMulti: String,
     @Json(name = "Cur_Name_EngMulti") val Cur_Name_EngMulti: String,
     @Json(name = "Cur_Scale") val Cur_Scale: Int,
-    @Json(name = "Cur_Periodicity") val Cur_Periodicity: Boolean,
+    @Json(name = "Cur_Periodicity") val Cur_Periodicity: Int,
     @Json(name = "Cur_DateStart") val Cur_DateStart: String,
     @Json(name = "Cur_DateEnd") val Cur_DateEnd: String
 )

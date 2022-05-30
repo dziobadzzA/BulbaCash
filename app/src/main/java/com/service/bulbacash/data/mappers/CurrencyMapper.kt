@@ -5,12 +5,11 @@ import com.service.bulbacash.di.Helper
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.utill.Mapper
 
-
-class CurrencyPojoToCurrency : Mapper<CurrencyPojo, Currency> {
+class CurrencyPojoToCurrency(private val mapHelper: Helper) : Mapper<CurrencyPojo, Currency> {
     override fun map(from: CurrencyPojo): Currency {
 
-        val isCurDateEnd = (System.currentTimeMillis() - Helper.format.parseDateTime(from.Cur_DateEnd).millis
-                < Helper.intervalDay)
+        val isCurDateEnd = (System.currentTimeMillis() - mapHelper.parseCurrencyDate(from.Cur_DateEnd).millis
+                < mapHelper.intervalDay)
 
         return Currency(
             Cur_ID = from.Cur_ID,

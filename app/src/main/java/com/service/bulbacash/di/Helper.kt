@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.components.SingletonComponent
 import org.joda.time.DateTime
+import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 
@@ -20,6 +21,9 @@ object Helper {
         val currentDate = DateTime.now()
         return "${currentDate.year}-${currentDate.monthOfYear}-${currentDate.dayOfMonth}T00:00:00"
     }
+
+    fun parseCurrencyDate(time: String): DateTime = LocalDateTime.parse(time).toDateTime()
+
 
     fun parseCurrentDate(time:String): String {
         val currentDate = time.split('-')
