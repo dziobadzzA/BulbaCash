@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_courseFragment_to_graphFragment"
             app:destination="@id/graphFragment" />
+        <action
+            android:id="@+id/action_courseFragment_to_workBucketsFragment"
+            app:destination="@id/workBucketsFragment" />
     </fragment>
     <fragment
         android:id="@+id/graphFragment"
@@ -20,6 +23,11 @@
         <argument
             android:name="IDBucket"
             app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/workBucketsFragment"
+        android:name="com.service.bulbacash.presentation.ui.buckets.WorkBucketsFragment"
+        android:layout="@layout/work_buckets_fragment">
     </fragment>
 
 </navigation>

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bucket_icon">36dp</dimen>
+    <dimen name="weight_spinner_bucket">410dp</dimen>
+    <dimen name="margin_float_button">200dp</dimen>
 </resources>
