@@ -22,7 +22,7 @@ class CourseViewModel @Inject constructor(
     private val mapHelper: Helper
 ):ViewModel() {
 
-    val list = listOf(BucketRate(
+    private val list = listOf(BucketRate(
         firstElement = Rate(
             Cur_ID = 431,
             Date = "2022-04-10T00:00:00",

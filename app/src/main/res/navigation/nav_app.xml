@@ -17,6 +17,9 @@
         android:id="@+id/graphFragment"
         android:name="com.service.bulbacash.presentation.ui.graph.GraphFragment"
         android:layout="@layout/course_graph_layout">
+        <argument
+            android:name="IDBucket"
+            app:argType="long" />
     </fragment>
 
 </navigation>

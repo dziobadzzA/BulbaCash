@@ -9,14 +9,13 @@
     <com.jjoe64.graphview.GraphView
         android:id="@+id/graph"
         android:layout_width="match_parent"
-        android:layout_height="300dip"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="275dip"
+        app:seriesType="line"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp" />
 
     <DatePicker
-        android:id="@+id/startTime"
+        android:id="@+id/endTime"
         style="@style/dateTimePickerStyleLand"
         android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +24,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <DatePicker
-        android:id="@+id/endTime"
+        android:id="@+id/startTime"
         style="@style/dateTimePickerStyleLand"
         android:layout_marginStart="24dp"
         app:layout_constraintBottom_toBottomOf="parent"

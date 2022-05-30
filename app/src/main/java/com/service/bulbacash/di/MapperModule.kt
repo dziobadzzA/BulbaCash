@@ -24,8 +24,9 @@ object MapperModule {
     }
 
     @Provides
-    fun provideRateShortPojoToRateShort(): RateShortPojoToRateShort {
-        return RateShortPojoToRateShort()
+    fun provideRateShortPojoToRateShort(templateEqualsValue: TemplateEqualsValue):
+            RateShortPojoToRateShort {
+        return RateShortPojoToRateShort(templateEqualsValue)
     }
 
     @Provides

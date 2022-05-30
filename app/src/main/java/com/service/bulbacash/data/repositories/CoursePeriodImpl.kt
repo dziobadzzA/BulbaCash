@@ -4,6 +4,7 @@ import com.service.bulbacash.data.api.BankApiService
 import com.service.bulbacash.data.mappers.RateShortPojoToRateShort
 import com.service.bulbacash.domain.models.RateShort
 import com.service.bulbacash.domain.repositories.CourseGraphRepository
+import java.lang.Exception
 import javax.inject.Inject
 
 class CoursePeriodImpl @Inject constructor(
@@ -16,9 +17,16 @@ class CoursePeriodImpl @Inject constructor(
         onStartDate: String,
         onEndDate: String
     ): List<RateShort> {
-       return mapRateShortPojoToRateShort.mapList(bankApi.getRateShort(id = id,
-           startDate = onStartDate, endDate = onStartDate)
-       )
+        return try {
+            mapRateShortPojoToRateShort.mapList(
+                bankApi.getRateShort(
+                    id = id,
+                    startDate = onStartDate, endDate = onEndDate
+                )
+            )
+        } catch (e:Exception){
+            listOf()
+        }
     }
 
 }
