@@ -10,6 +10,10 @@
             android:icon="@drawable/ic_baseline_attach_money_24"
             android:title="@string/course_valuta" />
         <item
+            android:id="@+id/nav_new_bucket"
+            android:icon="@drawable/ic_baseline_dashboard_customize_24"
+            android:title="@string/add_new_buckets" />
+        <item
             android:id="@+id/nav_check"
             android:icon="@drawable/ic_baseline_credit_card_24"
             android:title="@string/Check" />
