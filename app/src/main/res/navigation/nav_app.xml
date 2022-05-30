@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_app"
-    app:startDestination="@id/courseFragment">
+    app:startDestination="@id/nav_course">
 
     <fragment
-        android:id="@+id/courseFragment"
+        android:id="@+id/nav_course"
         android:name="com.service.bulbacash.presentation.ui.course.CourseFragment"
         tools:layout="@layout/course_fragment">
         <action
@@ -14,7 +14,7 @@
             app:destination="@id/graphFragment" />
         <action
             android:id="@+id/action_courseFragment_to_workBucketsFragment"
-            app:destination="@id/workBucketsFragment" />
+            app:destination="@id/nav_new_bucket" />
     </fragment>
     <fragment
         android:id="@+id/graphFragment"
@@ -25,7 +25,7 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/workBucketsFragment"
+        android:id="@+id/nav_new_bucket"
         android:name="com.service.bulbacash.presentation.ui.buckets.WorkBucketsFragment"
         android:layout="@layout/work_buckets_fragment">
     </fragment>
