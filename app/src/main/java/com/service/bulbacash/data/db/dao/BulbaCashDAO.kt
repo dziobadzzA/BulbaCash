@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.service.bulbacash.data.db.entity.BucketsEntity
+import com.service.bulbacash.data.db.entity.CurrencyEntity
 import com.service.bulbacash.data.db.entity.RateEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -36,4 +37,20 @@ interface BulbaCashDAO {
 
     @Query("DELETE FROM buckets WHERE id=:id")
     suspend fun deleteBucket(id: Long)
+
+    // commands for models Currency
+    @Insert
+    suspend fun insertCurrency(currency: CurrencyEntity)
+
+    @Query("SELECT * FROM currency")
+    suspend fun getAllCurrency(): CurrencyEntity
+
+    @Query("SELECT * FROM currency WHERE id=:id")
+    suspend fun getCurrency(id:Long): CurrencyEntity
+
+    @Update
+    suspend fun updateCurrency(currency: CurrencyEntity)
+
+    @Query("DELETE FROM currency WHERE id=:id")
+    suspend fun deleteCurrency(id: Long)
 }
