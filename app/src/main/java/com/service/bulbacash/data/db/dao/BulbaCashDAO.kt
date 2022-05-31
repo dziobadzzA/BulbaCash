@@ -58,5 +58,5 @@ interface BulbaCashDAO {
     suspend fun deleteAllCurrency()
 
     @Query("SELECT COUNT(id) FROM currency")
-    suspend fun sizeTableCurrency()
+    suspend fun sizeTableCurrency():Int
 }

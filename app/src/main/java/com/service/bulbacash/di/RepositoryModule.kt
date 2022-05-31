@@ -1,9 +1,8 @@
 package com.service.bulbacash.di
 
 import com.service.bulbacash.data.api.BankApiService
-import com.service.bulbacash.data.mappers.CurrencyPojoToCurrency
-import com.service.bulbacash.data.mappers.RatePojoToRate
-import com.service.bulbacash.data.mappers.RateShortPojoToRateShort
+import com.service.bulbacash.data.db.dao.BulbaCashDAO
+import com.service.bulbacash.data.mappers.*
 import com.service.bulbacash.data.repositories.CourseDayImpl
 import com.service.bulbacash.data.repositories.CoursePeriodImpl
 import com.service.bulbacash.data.repositories.GetAllBucketsImpl
@@ -48,11 +47,18 @@ object RepositoryModule {
     @Provides
     fun provideGetAllBucketsRepository(
         bankApi: BankApiService,
-        mapCurrencyPojoToCurrency: CurrencyPojoToCurrency
+        bulbaCashDAO: BulbaCashDAO,
+        mapCurrencyEntityToCurrency: CurrencyEntityToCurrency,
+        mapCurrencyPojoToCurrency: CurrencyPojoToCurrency,
+        mapCurrencyToCurrencyEntity: CurrencyToCurrencyEntity
+
     ):GetBucketsRepository {
         return GetAllBucketsImpl(
             bankApi = bankApi,
-            mapCurrencyPojoToCurrency = mapCurrencyPojoToCurrency
+            bulbaCashDAO = bulbaCashDAO,
+            mapCurrencyPojoToCurrency = mapCurrencyPojoToCurrency,
+            mapCurrencyEntityToCurrency = mapCurrencyEntityToCurrency,
+            mapCurrencyToCurrencyEntity = mapCurrencyToCurrencyEntity
         )
     }
 

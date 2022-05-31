@@ -36,4 +36,9 @@ object MapperModule {
         return CurrencyEntityToCurrency()
     }
 
+    @Provides
+    fun provideCurrencyToCurrencyEntity(): CurrencyToCurrencyEntity {
+        return CurrencyToCurrencyEntity()
+    }
+
 }

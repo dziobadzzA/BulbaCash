@@ -48,3 +48,24 @@ class CurrencyEntityToCurrency: Mapper<CurrencyEntity, Currency> {
 
     }
 }
+
+class CurrencyToCurrencyEntity: Mapper<Currency, CurrencyEntity> {
+
+    override fun map(from: Currency): CurrencyEntity {
+
+        return CurrencyEntity(
+            Cur_ID = from.Cur_ID,
+            Cur_ParentID = from.Cur_ParentID,
+            Cur_Code = from.Cur_Code,
+            Cur_Abbreviation = from.Cur_Abbreviation,
+            Cur_Name = from.Cur_Name,
+            Cur_QuotName = from.Cur_QuotName,
+            Cur_NameMulti = from.Cur_NameMulti,
+            Cur_Scale = from.Cur_Scale,
+            Cur_Periodicity = from.Cur_Periodicity,
+            Cur_DateStart = from.Cur_DateStart,
+            Is_Cur_DateEnd = from.Is_Cur_DateEnd
+        )
+
+    }
+}
