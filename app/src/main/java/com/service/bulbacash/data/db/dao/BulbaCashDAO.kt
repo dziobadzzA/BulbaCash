@@ -43,7 +43,7 @@ interface BulbaCashDAO {
     suspend fun insertCurrency(currency: CurrencyEntity)
 
     @Query("SELECT * FROM currency")
-    suspend fun getAllCurrency(): CurrencyEntity
+    suspend fun getAllCurrency(): List<CurrencyEntity>
 
     @Query("SELECT * FROM currency WHERE id=:id")
     suspend fun getCurrency(id:Long): CurrencyEntity
@@ -53,4 +53,7 @@ interface BulbaCashDAO {
 
     @Query("DELETE FROM currency WHERE id=:id")
     suspend fun deleteCurrency(id: Long)
+
+    @Query("DELETE FROM currency")
+    suspend fun deleteAllCurrency()
 }
