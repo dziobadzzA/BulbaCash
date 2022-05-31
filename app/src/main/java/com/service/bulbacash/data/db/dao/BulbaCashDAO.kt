@@ -19,7 +19,7 @@ interface BulbaCashDAO {
     fun getRate(id: Long): Flow<RateEntity>
 
     @Update
-    suspend fun updateToken(rate: RateEntity)
+    suspend fun updateRate(rate: RateEntity)
 
     @Query("DELETE FROM rate WHERE id=:id")
     suspend fun deleteRate(id: Long)
