@@ -3,7 +3,6 @@ package com.service.bulbacash.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.components.SingletonComponent
 import org.joda.time.DateTime
 import org.joda.time.LocalDateTime
