@@ -29,5 +29,6 @@ class WorkBucketsViewModel @Inject constructor(
 
     fun getListTextCountries() = mapMapperCountries.mapperCurrencyList(list.value)
 
+    fun getImageIcon(item: Currency) = mapMapperCountries.getIconCountries(item.Cur_ID)
 
 }

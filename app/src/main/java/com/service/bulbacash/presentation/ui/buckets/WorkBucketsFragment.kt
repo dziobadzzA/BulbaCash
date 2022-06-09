@@ -29,7 +29,13 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
 
         lifecycleScope.launchWhenCreated {
             viewModel.list.collect {
-                addItemsToList(list = viewModel.getListTextCountries())
+                if (it.isNotEmpty()) {
+                    addItemsToList(
+                        list = viewModel.getListTextCountries(),
+                        firstImage = viewModel.getImageIcon(it[0]),
+                        secondImage = viewModel.getImageIcon(it[0])
+                    )
+                }
             }
         }
 
@@ -41,14 +47,15 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
         binding = null
     }
 
-    private fun addItemsToList(list: List<String>) {
+    private fun addItemsToList(list: List<String>, firstImage: Int, secondImage:Int) {
         binding?.apply {
             val adapter = ArrayAdapter(requireContext().applicationContext,
                 android.R.layout.simple_spinner_item, list)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerFirst.adapter = adapter
             spinnerSecond.adapter = adapter
-            // imageFirst.setImageResource(R.drawable.ad)
+            imageFirst.setImageResource(firstImage)
+            imageSecond.setImageResource(secondImage)
         }
     }
 
