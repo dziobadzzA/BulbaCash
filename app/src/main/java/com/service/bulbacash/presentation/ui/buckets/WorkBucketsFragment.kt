@@ -29,7 +29,7 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
 
         lifecycleScope.launchWhenCreated {
             viewModel.list.collect {
-                addItemsToList(list = viewModel.mapperCurrencyList(list=it))
+                addItemsToList(list = viewModel.getListTextCountries())
             }
         }
 

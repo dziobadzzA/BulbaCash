@@ -1,6 +1,7 @@
 package com.service.bulbacash.presentation.ui.buckets
 
 import androidx.lifecycle.ViewModel
+import com.service.bulbacash.di.MapperCountries
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.usecases.GetAllBucketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorkBucketsViewModel @Inject constructor(
-    private val getAllBucketsUseCase: GetAllBucketsUseCase
+    private val getAllBucketsUseCase: GetAllBucketsUseCase,
+    private val mapMapperCountries: MapperCountries
 ):ViewModel() {
 
     private var _list = MutableStateFlow(listOf<Currency>())
@@ -25,11 +27,7 @@ class WorkBucketsViewModel @Inject constructor(
         }
     }
 
-    fun mapperCurrencyList(list: List<Currency>): List<String> {
-        val mapList = mutableListOf<String>()
-        for (item in list)
-            mapList.add(item.Cur_Name)
-        return mapList.toList()
-    }
+    fun getListTextCountries() = mapMapperCountries.mapperCurrencyList(list.value)
+
 
 }
