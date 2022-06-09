@@ -6,6 +6,7 @@ import com.service.bulbacash.di.AdapterWorkBuckets
 import com.service.bulbacash.di.MapperCountries
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.usecases.GetAllBucketsUseCase
+import com.service.bulbacash.domain.usecases.UpdateAllBucketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WorkBucketsViewModel @Inject constructor(
     private val getAllBucketsUseCase: GetAllBucketsUseCase,
+    private val updateAllBucketsUseCase: UpdateAllBucketsUseCase,
     private val mapMapperCountries: MapperCountries,
     private val mapAdapterWorkBuckets: AdapterWorkBuckets
 ):ViewModel() {

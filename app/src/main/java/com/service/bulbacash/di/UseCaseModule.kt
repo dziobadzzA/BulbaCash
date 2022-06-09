@@ -3,10 +3,7 @@ package com.service.bulbacash.di
 import com.service.bulbacash.domain.repositories.CourseDayRepository
 import com.service.bulbacash.domain.repositories.CourseGraphRepository
 import com.service.bulbacash.domain.repositories.GetBucketsRepository
-import com.service.bulbacash.domain.usecases.CourseDateUseCase
-import com.service.bulbacash.domain.usecases.CoursePeriodUseCase
-import com.service.bulbacash.domain.usecases.CourseTodayUseCase
-import com.service.bulbacash.domain.usecases.GetAllBucketsUseCase
+import com.service.bulbacash.domain.usecases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,4 +32,10 @@ object UseCaseModule {
     fun provideGetAllBucketsUseCase(repository: GetBucketsRepository): GetAllBucketsUseCase {
         return GetAllBucketsUseCase(repository = repository)
     }
+
+    @Provides
+    fun provideUpdateAllBucketsUseCase(repository: GetBucketsRepository): UpdateAllBucketsUseCase {
+        return UpdateAllBucketsUseCase(repository = repository)
+    }
+
 }
