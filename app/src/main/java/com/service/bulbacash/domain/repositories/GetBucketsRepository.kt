@@ -4,4 +4,5 @@ import com.service.bulbacash.domain.models.Currency
 
 interface GetBucketsRepository {
     suspend fun getCurrency():List<Currency>
+    suspend fun getUpdateCurrency():List<Currency>
 }

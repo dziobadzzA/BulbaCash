@@ -7,8 +7,8 @@ import com.service.bulbacash.data.mappers.CurrencyPojoToCurrency
 import com.service.bulbacash.data.mappers.CurrencyToCurrencyEntity
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.repositories.GetBucketsRepository
-import java.lang.Exception
 import javax.inject.Inject
+import kotlin.Exception
 
 class GetAllBucketsImpl@Inject constructor(
     private val bankApi: BankApiService,
@@ -35,6 +35,18 @@ class GetAllBucketsImpl@Inject constructor(
         } catch (e: Exception){
             listOf()
         }
+    }
+
+    override suspend fun getUpdateCurrency(): List<Currency> {
+
+        return try {
+            bulbaCashDAO.deleteAllCurrency()
+            getCurrency()
+        }
+        catch (e:Exception){
+            listOf()
+        }
+
     }
 
 }
