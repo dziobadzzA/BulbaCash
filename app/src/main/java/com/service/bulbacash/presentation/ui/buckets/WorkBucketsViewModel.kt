@@ -1,6 +1,8 @@
 package com.service.bulbacash.presentation.ui.buckets
 
+import android.widget.ImageView
 import androidx.lifecycle.ViewModel
+import com.service.bulbacash.di.AdapterWorkBuckets
 import com.service.bulbacash.di.MapperCountries
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.usecases.GetAllBucketsUseCase
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WorkBucketsViewModel @Inject constructor(
     private val getAllBucketsUseCase: GetAllBucketsUseCase,
-    private val mapMapperCountries: MapperCountries
+    private val mapMapperCountries: MapperCountries,
+    private val mapAdapterWorkBuckets: AdapterWorkBuckets
 ):ViewModel() {
 
     private var _list = MutableStateFlow(listOf<Currency>())
@@ -30,5 +33,9 @@ class WorkBucketsViewModel @Inject constructor(
     fun getListTextCountries() = mapMapperCountries.mapperCurrencyList(list.value)
 
     fun getImageIcon(item: Currency) = mapMapperCountries.getIconCountries(item.Cur_ID)
+
+    fun getListenerToSpinner(imageView: ImageView) = mapAdapterWorkBuckets.getAdapterWorkBuckets(
+        imageView = imageView, viewModel = this
+    )
 
 }

@@ -10,6 +10,7 @@ import com.service.bulbacash.R
 import com.service.bulbacash.databinding.WorkBucketsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
 
@@ -22,9 +23,18 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
 
 
         binding?.apply {
+
             btnAddBucket.setOnClickListener {
 
             }
+
+            spinnerFirst.onItemSelectedListener = viewModel.getListenerToSpinner(
+                imageView = imageFirst)
+
+            spinnerSecond.onItemSelectedListener = viewModel.getListenerToSpinner(
+                imageView = imageSecond
+            )
+
         }
 
         lifecycleScope.launchWhenCreated {
