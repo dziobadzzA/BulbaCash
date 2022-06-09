@@ -24,4 +24,12 @@ class WorkBucketsViewModel @Inject constructor(
             _list.value = getAllBucketsUseCase.invoke()
         }
     }
+
+    fun mapperCurrencyList(list: List<Currency>): List<String> {
+        val mapList = mutableListOf<String>()
+        for (item in list)
+            mapList.add(item.Cur_Name)
+        return mapList.toList()
+    }
+
 }
