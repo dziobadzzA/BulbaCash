@@ -5,4 +5,5 @@ import com.service.bulbacash.domain.models.BucketRate
 interface CurrentBucketsRepository {
     suspend fun addBucket(bucketRate: BucketRate): Boolean
     suspend fun getBuckets():List<BucketRate>
+    suspend fun deleteBucket(bucketRate: BucketRate): Boolean
 }
