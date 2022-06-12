@@ -49,4 +49,9 @@ object UseCaseModule {
         return GetBucketsUseCase(repository = repository)
     }
 
+    @Provides
+    fun provideDeleteBucketUseCase(repository: CurrentBucketsRepository): DeleteBucketUseCase {
+        return DeleteBucketUseCase(repository = repository)
+    }
+
 }
