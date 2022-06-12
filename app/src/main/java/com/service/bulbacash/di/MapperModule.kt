@@ -1,9 +1,7 @@
 package com.service.bulbacash.di
 
-import com.service.bulbacash.data.mappers.CurrencyPojoToCurrency
-import com.service.bulbacash.data.mappers.RateEntityToRate
-import com.service.bulbacash.data.mappers.RatePojoToRate
-import com.service.bulbacash.data.mappers.RateShortPojoToRateShort
+import com.service.bulbacash.data.db.dao.BulbaCashDAO
+import com.service.bulbacash.data.mappers.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,8 +12,8 @@ import dagger.hilt.components.SingletonComponent
 object MapperModule {
 
     @Provides
-    fun provideCurrencyPojoToCurrency(): CurrencyPojoToCurrency {
-        return CurrencyPojoToCurrency()
+    fun provideCurrencyPojoToCurrency(mapHelper:Helper): CurrencyPojoToCurrency {
+        return CurrencyPojoToCurrency(mapHelper = mapHelper)
     }
 
     @Provides
@@ -30,8 +28,35 @@ object MapperModule {
     }
 
     @Provides
-    fun  provideRateEntityToRate(): RateEntityToRate {
+    fun provideRateEntityToRate(): RateEntityToRate {
         return RateEntityToRate()
+    }
+
+    @Provides
+    fun provideCurrencyEntityToCurrency(): CurrencyEntityToCurrency {
+        return CurrencyEntityToCurrency()
+    }
+
+    @Provides
+    fun provideCurrencyToCurrencyEntity(): CurrencyToCurrencyEntity {
+        return CurrencyToCurrencyEntity()
+    }
+
+    @Provides
+    fun provideBucketsEntityToBucketRate(
+        bulbaCashDAO: BulbaCashDAO,
+        mapperRateEntityToRate: RateEntityToRate): BucketsEntityToBucketRate {
+
+        return BucketsEntityToBucketRate(
+            bulbaCashDAO = bulbaCashDAO,
+            mapperRateEntityToRate = mapperRateEntityToRate
+        )
+
+    }
+
+    @Provides
+    fun provideBucketsRateToBucketEntity(): BucketsRateToBucketEntity {
+        return BucketsRateToBucketEntity()
     }
 
 }
