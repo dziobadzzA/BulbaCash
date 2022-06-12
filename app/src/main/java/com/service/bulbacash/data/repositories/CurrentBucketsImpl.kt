@@ -34,4 +34,8 @@ class CurrentBucketsImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getBucket(id: Long): BucketRate {
+        return mapperBucketsEntityToBucketRate.map(bulbaCashDAO.getBucket(id = id))
+    }
+
 }

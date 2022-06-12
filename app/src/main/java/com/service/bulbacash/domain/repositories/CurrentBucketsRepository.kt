@@ -6,4 +6,5 @@ interface CurrentBucketsRepository {
     suspend fun addBucket(firstID: Long, secondID: Long):Boolean
     suspend fun getBuckets():List<BucketRate>
     suspend fun deleteBucket(bucketRate: BucketRate): Boolean
+    suspend fun getBucket(id:Long): BucketRate
 }
