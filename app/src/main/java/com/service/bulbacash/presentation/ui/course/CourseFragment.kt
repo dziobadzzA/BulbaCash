@@ -32,7 +32,7 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = CourseFragmentBinding.bind(view)
-        adapter = CourseAdapter(this)
+        adapter = CourseAdapter(this, viewModel.getMapperCountries())
 
         viewModel.initBuckets()
 

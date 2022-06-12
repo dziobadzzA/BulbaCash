@@ -2,6 +2,7 @@ package com.service.bulbacash.presentation.ui.course
 
 import androidx.lifecycle.ViewModel
 import com.service.bulbacash.di.Helper
+import com.service.bulbacash.di.MapperCountries
 import com.service.bulbacash.domain.models.BucketRate
 import com.service.bulbacash.domain.models.Rate
 import com.service.bulbacash.domain.usecases.CourseDateUseCase
@@ -23,7 +24,8 @@ class CourseViewModel @Inject constructor(
     private val courseDateUseCase: CourseDateUseCase,
     private val mapHelper: Helper,
     private val getBucketsUseCase: GetBucketsUseCase,
-    private val deleteBucketUseCase: DeleteBucketUseCase
+    private val deleteBucketUseCase: DeleteBucketUseCase,
+    private val mapMapperCountries: MapperCountries
 ):ViewModel() {
 
     private var _buckets = MutableStateFlow(mutableListOf<BucketRate>())
@@ -34,6 +36,8 @@ class CourseViewModel @Inject constructor(
             _buckets.value = getBucketsUseCase.invoke().toMutableList()
         }
     }
+
+    fun getMapperCountries() = mapMapperCountries
 
     private val oldBuckets = mutableListOf<BucketRate>()
 

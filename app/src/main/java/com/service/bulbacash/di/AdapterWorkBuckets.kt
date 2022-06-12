@@ -15,7 +15,7 @@ object AdapterWorkBuckets {
 
     fun getAdapterWorkBuckets(imageView: ImageView, viewModel: WorkBucketsViewModel) = object : AdapterView.OnItemSelectedListener {
 
-        override fun onItemSelected(adapterView: AdapterView<*>?, view: View,
+        override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
             i: Int, l: Long) {
             imageView.setImageResource(viewModel.getImageIcon(viewModel.list.value[i]))
         }
