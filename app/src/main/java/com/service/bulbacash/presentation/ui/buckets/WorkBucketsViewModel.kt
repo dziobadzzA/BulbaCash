@@ -40,4 +40,10 @@ class WorkBucketsViewModel @Inject constructor(
         imageView = imageView, viewModel = this
     )
 
+    fun getNewPartToBuckets() {
+        CoroutineScope(Dispatchers.IO).launch {
+            _list.value = updateAllBucketsUseCase.invoke()
+        }
+    }
+
 }

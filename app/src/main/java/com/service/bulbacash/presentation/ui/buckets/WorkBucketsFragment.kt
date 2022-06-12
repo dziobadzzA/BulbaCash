@@ -28,6 +28,11 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
 
             }
 
+            swipeRefreshLayout.setOnRefreshListener {
+                viewModel.getNewPartToBuckets()
+                swipeRefreshLayout.isRefreshing = false
+            }
+
             spinnerFirst.onItemSelectedListener = viewModel.getListenerToSpinner(
                 imageView = imageFirst)
 
