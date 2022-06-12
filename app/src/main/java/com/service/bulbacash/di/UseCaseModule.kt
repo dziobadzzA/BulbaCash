@@ -44,4 +44,9 @@ object UseCaseModule {
         return AddBucketUseCase(repository = repository)
     }
 
+    @Provides
+    fun provideGetBucketsUseCase(repository: CurrentBucketsRepository): GetBucketsUseCase {
+        return GetBucketsUseCase(repository = repository)
+    }
+
 }
