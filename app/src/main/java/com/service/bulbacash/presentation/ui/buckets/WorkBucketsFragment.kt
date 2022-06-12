@@ -3,12 +3,16 @@ package com.service.bulbacash.presentation.ui.buckets
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.WorkBucketsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -25,9 +29,15 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
         binding?.apply {
 
             btnAddBucket.setOnClickListener {
-                viewModel.addBucket(firstID=spinnerFirst.selectedItemId, secondID =
-                    spinnerSecond.selectedItemId
-                )
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (viewModel.addBucket(
+                            firstID=spinnerFirst.selectedItemId,
+                            secondID = spinnerSecond.selectedItemId)
+                    )
+                        Toast.makeText(requireContext(), "Good add bucket", Toast.LENGTH_LONG)
+                    else
+                        Toast.makeText(requireContext(), "Not add bucket", Toast.LENGTH_LONG)
+                }
             }
 
             swipeRefreshLayout.setOnRefreshListener {

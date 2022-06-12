@@ -27,7 +27,7 @@ class CurrentBucketsImpl @Inject constructor(
     }
 
     override suspend fun getBuckets(): List<BucketRate> {
-        TODO("Not yet implemented")
+        return mapperBucketsEntityToBucketRate.mapList(bulbaCashDAO.getAllBuckets())
     }
 
     override suspend fun deleteBucket(bucketRate: BucketRate): Boolean {

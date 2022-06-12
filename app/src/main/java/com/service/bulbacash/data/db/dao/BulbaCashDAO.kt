@@ -38,6 +38,9 @@ interface BulbaCashDAO {
     @Query("DELETE FROM buckets WHERE id=:id")
     suspend fun deleteBucket(id: Long)
 
+    @Query("SELECT * FROM buckets")
+    suspend fun getAllBuckets(): List<BucketsEntity>
+
     // commands for models Currency
     @Insert
     suspend fun insertCurrency(currency: CurrencyEntity)

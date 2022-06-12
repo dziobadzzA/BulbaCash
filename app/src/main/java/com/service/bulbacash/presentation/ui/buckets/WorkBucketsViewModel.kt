@@ -11,6 +11,7 @@ import com.service.bulbacash.domain.usecases.UpdateAllBucketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -48,15 +49,17 @@ class WorkBucketsViewModel @Inject constructor(
         }
     }
 
-    fun addBucket(firstID: Long, secondID: Long) {
+    suspend fun addBucket(firstID: Long, secondID: Long):Boolean {
         if (list.value.isNotEmpty()) {
-            CoroutineScope(Dispatchers.IO).launch {
+            val stateAddElement = CoroutineScope(Dispatchers.IO).async {
                 addBucketUseCase.invoke(
                     firstID = list.value[firstID.toInt()].Cur_ID.toLong(),
                     secondID = list.value[secondID.toInt()].Cur_ID.toLong()
                 )
             }
+            return stateAddElement.await()
         }
+        return false
     }
 
 }
