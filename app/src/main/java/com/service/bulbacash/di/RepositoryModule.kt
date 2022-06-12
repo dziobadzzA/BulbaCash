@@ -68,13 +68,11 @@ object RepositoryModule {
     @Provides
     fun provideCurrentBucketsRepository(
         bulbaCashDAO: BulbaCashDAO,
-        mapperBucketsEntityToBucketRate: BucketsEntityToBucketRate,
-        mapperBucketsRateToBucketEntity: BucketsRateToBucketEntity
+        mapperBucketsEntityToBucketRate: BucketsEntityToBucketRate
     ): CurrentBucketsRepository {
         return CurrentBucketsImpl(
             bulbaCashDAO = bulbaCashDAO,
-            mapperBucketsEntityToBucketRate = mapperBucketsEntityToBucketRate,
-            mapperBucketsRateToBucketEntity = mapperBucketsRateToBucketEntity
+            mapperBucketsEntityToBucketRate = mapperBucketsEntityToBucketRate
         )
     }
 

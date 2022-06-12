@@ -76,7 +76,7 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
     }
 
     override fun deleteBucket(ID: Int) {
-        TODO("Not yet implemented")
+        viewModel.deleteItemList(ID=ID)
     }
 
     override fun onAttach(context: Context) {

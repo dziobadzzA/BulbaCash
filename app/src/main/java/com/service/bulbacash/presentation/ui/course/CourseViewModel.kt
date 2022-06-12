@@ -6,6 +6,7 @@ import com.service.bulbacash.domain.models.BucketRate
 import com.service.bulbacash.domain.models.Rate
 import com.service.bulbacash.domain.usecases.CourseDateUseCase
 import com.service.bulbacash.domain.usecases.CourseTodayUseCase
+import com.service.bulbacash.domain.usecases.DeleteBucketUseCase
 import com.service.bulbacash.domain.usecases.GetBucketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -21,17 +22,16 @@ class CourseViewModel @Inject constructor(
     private val courseTodayUseCase: CourseTodayUseCase,
     private val courseDateUseCase: CourseDateUseCase,
     private val mapHelper: Helper,
-    private val getBucketsUseCase: GetBucketsUseCase
+    private val getBucketsUseCase: GetBucketsUseCase,
+    private val deleteBucketUseCase: DeleteBucketUseCase
 ):ViewModel() {
 
     private var _buckets = MutableStateFlow(mutableListOf<BucketRate>())
     val buckets = _buckets.asStateFlow()
 
     fun initBuckets() {
-        if (buckets.value.isEmpty()) {
-            CoroutineScope(Dispatchers.IO).launch {
-                _buckets.value = getBucketsUseCase.invoke().toMutableList()
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            _buckets.value = getBucketsUseCase.invoke().toMutableList()
         }
     }
 
@@ -136,5 +136,25 @@ class CourseViewModel @Inject constructor(
             else -> { 0 }
         }
     }
+
+    fun deleteItemList(ID: Int) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            if (deleteBucketUseCase.invoke(buckets.value[ID])) {
+               _buckets.value = newListLastDelete(ID)
+            }
+        }
+
+    }
+
+    private fun newListLastDelete(id: Int): MutableList<BucketRate> {
+        val newBucketRate = mutableListOf<BucketRate>()
+        for (i in 0 until buckets.value.size){
+            if (i != id)
+                newBucketRate.add(buckets.value[i])
+        }
+        return newBucketRate
+    }
+
 
 }
