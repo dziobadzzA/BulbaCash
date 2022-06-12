@@ -22,14 +22,21 @@ class GetAllBucketsImpl@Inject constructor(
             val size = bulbaCashDAO.sizeTableCurrency()
 
             if (size > 0) {
-                mapCurrencyEntityToCurrency.mapList(bulbaCashDAO.getAllCurrency())
+                mapCurrencyEntityToCurrency.mapList(bulbaCashDAO.getAllCurrency()).sortedBy {
+                    it.Cur_Name
+                }
             }
             else {
                 val list = mapCurrencyPojoToCurrency.mapList(bankApi.getCurrency())
+                val resultList = mutableListOf<Currency>()
                 for (item in list) {
-                    bulbaCashDAO.insertCurrency(mapCurrencyToCurrencyEntity.map(item))
+                    if (item.Is_Cur_DateEnd) {
+                        bulbaCashDAO.insertCurrency(mapCurrencyToCurrencyEntity.map(item))
+                        resultList.add(item)
+                    }
                 }
-                list
+                resultList.sortBy { it.Cur_Name }
+                resultList.toList()
             }
 
         } catch (e: Exception){
