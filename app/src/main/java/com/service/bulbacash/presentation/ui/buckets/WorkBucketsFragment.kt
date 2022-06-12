@@ -25,7 +25,9 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
         binding?.apply {
 
             btnAddBucket.setOnClickListener {
-
+                viewModel.addBucket(firstID=spinnerFirst.selectedItemId, secondID =
+                    spinnerSecond.selectedItemId
+                )
             }
 
             swipeRefreshLayout.setOnRefreshListener {

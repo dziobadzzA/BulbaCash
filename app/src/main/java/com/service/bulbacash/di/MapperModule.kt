@@ -1,5 +1,6 @@
 package com.service.bulbacash.di
 
+import com.service.bulbacash.data.db.dao.BulbaCashDAO
 import com.service.bulbacash.data.mappers.*
 import dagger.Module
 import dagger.Provides
@@ -27,7 +28,7 @@ object MapperModule {
     }
 
     @Provides
-    fun  provideRateEntityToRate(): RateEntityToRate {
+    fun provideRateEntityToRate(): RateEntityToRate {
         return RateEntityToRate()
     }
 
@@ -39,6 +40,23 @@ object MapperModule {
     @Provides
     fun provideCurrencyToCurrencyEntity(): CurrencyToCurrencyEntity {
         return CurrencyToCurrencyEntity()
+    }
+
+    @Provides
+    fun provideBucketsEntityToBucketRate(
+        bulbaCashDAO: BulbaCashDAO,
+        mapperRateEntityToRate: RateEntityToRate): BucketsEntityToBucketRate {
+
+        return BucketsEntityToBucketRate(
+            bulbaCashDAO = bulbaCashDAO,
+            mapperRateEntityToRate = mapperRateEntityToRate
+        )
+
+    }
+
+    @Provides
+    fun provideBucketsRateToBucketEntity(): BucketsRateToBucketEntity {
+        return BucketsRateToBucketEntity()
     }
 
 }

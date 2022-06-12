@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.service.bulbacash.di.AdapterWorkBuckets
 import com.service.bulbacash.di.MapperCountries
 import com.service.bulbacash.domain.models.Currency
+import com.service.bulbacash.domain.usecases.AddBucketUseCase
 import com.service.bulbacash.domain.usecases.GetAllBucketsUseCase
 import com.service.bulbacash.domain.usecases.UpdateAllBucketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class WorkBucketsViewModel @Inject constructor(
     private val getAllBucketsUseCase: GetAllBucketsUseCase,
     private val updateAllBucketsUseCase: UpdateAllBucketsUseCase,
+    private val addBucketUseCase: AddBucketUseCase,
     private val mapMapperCountries: MapperCountries,
     private val mapAdapterWorkBuckets: AdapterWorkBuckets
 ):ViewModel() {
@@ -43,6 +45,17 @@ class WorkBucketsViewModel @Inject constructor(
     fun getNewPartToBuckets() {
         CoroutineScope(Dispatchers.IO).launch {
             _list.value = updateAllBucketsUseCase.invoke()
+        }
+    }
+
+    fun addBucket(firstID: Long, secondID: Long) {
+        if (list.value.isNotEmpty()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                addBucketUseCase.invoke(
+                    firstID = list.value[firstID.toInt()].Cur_ID.toLong(),
+                    secondID = list.value[secondID.toInt()].Cur_ID.toLong()
+                )
+            }
         }
     }
 

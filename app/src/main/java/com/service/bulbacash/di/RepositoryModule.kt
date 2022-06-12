@@ -66,8 +66,16 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideCurrentBucketsRepository(): CurrentBucketsRepository {
-        return CurrentBucketsImpl()
+    fun provideCurrentBucketsRepository(
+        bulbaCashDAO: BulbaCashDAO,
+        mapperBucketsEntityToBucketRate: BucketsEntityToBucketRate,
+        mapperBucketsRateToBucketEntity: BucketsRateToBucketEntity
+    ): CurrentBucketsRepository {
+        return CurrentBucketsImpl(
+            bulbaCashDAO = bulbaCashDAO,
+            mapperBucketsEntityToBucketRate = mapperBucketsEntityToBucketRate,
+            mapperBucketsRateToBucketEntity = mapperBucketsRateToBucketEntity
+        )
     }
 
 }
