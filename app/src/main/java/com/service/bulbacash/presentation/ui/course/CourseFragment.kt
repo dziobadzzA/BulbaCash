@@ -32,6 +32,8 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
         binding = CourseFragmentBinding.bind(view)
         adapter = CourseAdapter(this)
 
+        viewModel.initBuckets()
+
         binding?.apply {
             listBucket.adapter = adapter
             viewModel.getAllCourseToday()

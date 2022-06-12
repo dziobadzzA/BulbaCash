@@ -47,3 +47,15 @@ class RateEntityToRate: Mapper<RateEntity, Rate> {
         )
     }
 }
+
+class RateToRateEntity: Mapper<Rate, RateEntity> {
+    override fun map(from: Rate): RateEntity {
+        return RateEntity(
+            Cur_ID = from.Cur_ID,
+            Cur_Abbreviation = from.Cur_Abbreviation,
+            Cur_Scale = from.Cur_Scale,
+            Cur_Name = from.Cur_Name,
+            Cur_OfficialRate = from.Cur_OfficialRate
+        )
+    }
+}

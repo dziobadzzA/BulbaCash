@@ -1,5 +1,6 @@
 package com.service.bulbacash.di
 
+import com.service.bulbacash.data.api.BankApiService
 import com.service.bulbacash.data.db.dao.BulbaCashDAO
 import com.service.bulbacash.data.mappers.*
 import dagger.Module
@@ -45,11 +46,18 @@ object MapperModule {
     @Provides
     fun provideBucketsEntityToBucketRate(
         bulbaCashDAO: BulbaCashDAO,
-        mapperRateEntityToRate: RateEntityToRate): BucketsEntityToBucketRate {
+        mapperRateEntityToRate: RateEntityToRate,
+        bankApi: BankApiService,
+        mapperRatePojoToRate: RatePojoToRate,
+        mapperRateToRateEntity: RateToRateEntity
+    ): BucketsEntityToBucketRate {
 
         return BucketsEntityToBucketRate(
             bulbaCashDAO = bulbaCashDAO,
-            mapperRateEntityToRate = mapperRateEntityToRate
+            mapperRateEntityToRate = mapperRateEntityToRate,
+            bankApi = bankApi,
+            mapperRatePojoToRate = mapperRatePojoToRate,
+            mapperRateToRateEntity = mapperRateToRateEntity
         )
 
     }
@@ -57,6 +65,11 @@ object MapperModule {
     @Provides
     fun provideBucketsRateToBucketEntity(): BucketsRateToBucketEntity {
         return BucketsRateToBucketEntity()
+    }
+
+    @Provides
+    fun provideRateToRateEntity(): RateToRateEntity {
+        return RateToRateEntity()
     }
 
 }

@@ -1,47 +1,79 @@
 package com.service.bulbacash.data.mappers
 
+import com.service.bulbacash.data.api.BankApiService
 import com.service.bulbacash.data.db.dao.BulbaCashDAO
 import com.service.bulbacash.data.db.entity.BucketsEntity
+import com.service.bulbacash.data.db.entity.RateEntity
 import com.service.bulbacash.domain.models.BucketRate
+import com.service.bulbacash.domain.models.Rate
 import com.service.bulbacash.domain.utill.Mapper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.first
 
 class BucketsEntityToBucketRate(
-        private val bulbaCashDAO: BulbaCashDAO,
-        private val mapperRateEntityToRate: RateEntityToRate) {
+    private val bulbaCashDAO: BulbaCashDAO,
+    private val mapperRateEntityToRate: RateEntityToRate,
+    private val mapperRateToRateEntity: RateToRateEntity,
+    private val bankApi: BankApiService,
+    private val mapperRatePojoToRate: RatePojoToRate) {
 
-    suspend fun map(from: BucketsEntity): BucketRate {
+     private suspend fun correctMapAPI(rateEntity: RateEntity?, id: Int): Rate? {
 
-        val bucketRate = CoroutineScope(Dispatchers.IO).async {
-            val firstFlowElement = bulbaCashDAO.getRate(id = from.firstRate)
-            val secondFlowElement = bulbaCashDAO.getRate(id = from.secondRate)
+         if (rateEntity == null) {
 
-            val firstElement = mapperRateEntityToRate.map(firstFlowElement.first())
-            val secondElement = mapperRateEntityToRate.map(secondFlowElement.first())
+             val rate = bankApi.getRateToday(id=id)?.let {
+                 mapperRatePojoToRate.map(
+                     it
+                 )
+             }
 
-            val bucket = BucketRate(
-                firstElement = firstElement,
-                secondElement = secondElement,
-                coeffiecient = firstElement.Cur_OfficialRate / secondElement.Cur_OfficialRate,
-                typeFirst = 1,
-                typeSecond = 1,
-                ID = from.id
-            )
-            bucket
-        }
+             return if (rate == null)
+                 null
+             else {
+                 bulbaCashDAO.insertRate(mapperRateToRateEntity.map(rate))
+                 rate
+             }
 
-        return bucketRate.await()
+         }
+
+         return null
+     }
+
+     suspend fun map(from: BucketsEntity): BucketRate {
+
+        val firstDBElement = bulbaCashDAO.getRateForBucket(id=from.firstRate)
+        val secondDBElement = bulbaCashDAO.getRateForBucket(id=from.secondRate)
+
+         val firstElement = if (correctMapAPI(firstDBElement, from.firstRate.toInt()) != null) {
+             correctMapAPI(firstDBElement, from.firstRate.toInt())
+         } else {
+             firstDBElement?.let { mapperRateEntityToRate.map(it) }
+         }
+
+         val secondElement = if (correctMapAPI(secondDBElement, from.secondRate.toInt()) != null) {
+             correctMapAPI(secondDBElement, from.secondRate.toInt())
+         } else {
+             secondDBElement?.let { mapperRateEntityToRate.map(it) }
+         }
+
+         return BucketRate(
+            firstElement = firstElement,
+            secondElement = secondElement,
+            coeffiecient = secondElement?.let { firstElement?.Cur_OfficialRate?.div(it.Cur_OfficialRate) }
+                ?: 0.0,
+            typeFirst = 1,
+            typeSecond = 1,
+            ID = from.id
+         )
     }
 
     suspend fun mapList(list: List<BucketsEntity>): List<BucketRate> {
 
         val resultList = mutableListOf<BucketRate>()
 
-        for (item in list)
-            resultList.add(map(item))
+        for (item in list) {
+            val test = map(item)
+            resultList.add(test)
+        }
+
 
         return resultList
     }
