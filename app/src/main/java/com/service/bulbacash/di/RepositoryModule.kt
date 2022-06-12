@@ -5,9 +5,11 @@ import com.service.bulbacash.data.db.dao.BulbaCashDAO
 import com.service.bulbacash.data.mappers.*
 import com.service.bulbacash.data.repositories.CourseDayImpl
 import com.service.bulbacash.data.repositories.CoursePeriodImpl
+import com.service.bulbacash.data.repositories.CurrentBucketsImpl
 import com.service.bulbacash.data.repositories.GetAllBucketsImpl
 import com.service.bulbacash.domain.repositories.CourseDayRepository
 import com.service.bulbacash.domain.repositories.CourseGraphRepository
+import com.service.bulbacash.domain.repositories.CurrentBucketsRepository
 import com.service.bulbacash.domain.repositories.GetBucketsRepository
 import dagger.Module
 import dagger.Provides
@@ -60,6 +62,12 @@ object RepositoryModule {
             mapCurrencyEntityToCurrency = mapCurrencyEntityToCurrency,
             mapCurrencyToCurrencyEntity = mapCurrencyToCurrencyEntity
         )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCurrentBucketsRepository(): CurrentBucketsRepository {
+        return CurrentBucketsImpl()
     }
 
 }
