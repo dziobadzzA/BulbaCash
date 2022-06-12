@@ -166,7 +166,7 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     }
 
     private fun setStyleX(series: LineGraphSeries<DataPoint>) {
-        series.title = viewModel.bucket.firstElement?.Cur_Abbreviation
+        series.title = viewModel.bucket?.firstElement?.Cur_Abbreviation
         series.color = Color.RED
         series.isDrawBackground = true
         series.isDrawDataPoints = true
@@ -177,7 +177,7 @@ class GraphFragment: Fragment(R.layout.course_graph_layout) {
     }
 
     private fun setStyleY(series: LineGraphSeries<DataPoint>) {
-        series.title = viewModel.bucket.secondElement?.Cur_Abbreviation
+        series.title = viewModel.bucket?.secondElement?.Cur_Abbreviation
         series.color = Color.GREEN
         series.isDrawBackground = true
         series.isDrawDataPoints = true

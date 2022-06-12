@@ -34,9 +34,9 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
                             firstID=spinnerFirst.selectedItemId,
                             secondID = spinnerSecond.selectedItemId)
                     )
-                        Toast.makeText(requireContext(), "Good add bucket", Toast.LENGTH_LONG)
+                        Toast.makeText(requireContext(), "Good add bucket", Toast.LENGTH_LONG).show()
                     else
-                        Toast.makeText(requireContext(), "Not add bucket", Toast.LENGTH_LONG)
+                        Toast.makeText(requireContext(), "Not add bucket", Toast.LENGTH_LONG).show()
                 }
             }
 
