@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.CourseFragmentBinding
 import com.service.bulbacash.domain.models.BucketRate
@@ -36,6 +38,7 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
 
         binding?.apply {
             listBucket.adapter = adapter
+            ItemTouchHelper(createSwipeDelete()).attachToRecyclerView(listBucket)
             viewModel.getAllCourseToday()
             lifecycleScope.launchWhenCreated {
                 viewModel.buckets.collect {
@@ -72,9 +75,23 @@ class CourseFragment: Fragment(R.layout.course_fragment), CourseListener {
         )
     }
 
+    override fun deleteBucket(ID: Int) {
+        TODO("Not yet implemented")
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         notArrow =  context as NotArrow
+    }
+
+    private fun createSwipeDelete(): SwipeDelete {
+        return object : SwipeDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                super.onSwiped(viewHolder, direction)
+                val position = viewHolder.adapterPosition
+                deleteBucket(position)
+            }
+        }
     }
 
 }

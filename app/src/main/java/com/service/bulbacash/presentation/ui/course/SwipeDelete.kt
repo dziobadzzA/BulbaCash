@@ -3,7 +3,7 @@ package com.service.bulbacash.presentation.ui.course
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class SwipeDelete: ItemTouchHelper.Callback() {
+open class SwipeDelete: ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
