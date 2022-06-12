@@ -2,6 +2,7 @@ package com.service.bulbacash.di
 
 import com.service.bulbacash.domain.repositories.CourseDayRepository
 import com.service.bulbacash.domain.repositories.CourseGraphRepository
+import com.service.bulbacash.domain.repositories.CurrentBucketsRepository
 import com.service.bulbacash.domain.repositories.GetBucketsRepository
 import com.service.bulbacash.domain.usecases.*
 import dagger.Module
@@ -36,6 +37,11 @@ object UseCaseModule {
     @Provides
     fun provideUpdateAllBucketsUseCase(repository: GetBucketsRepository): UpdateAllBucketsUseCase {
         return UpdateAllBucketsUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideAddBucketUseCase(repository: CurrentBucketsRepository): AddBucketUseCase {
+        return AddBucketUseCase(repository = repository)
     }
 
 }
