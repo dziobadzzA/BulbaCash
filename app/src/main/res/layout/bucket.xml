@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -46,42 +46,50 @@
 
         <TextView
             android:id="@+id/second_coefficient_by"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="12dp"
-            android:textStyle="normal|bold"
             android:text="@string/defaultValueEU"
+            android:textStyle="normal|bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/second_line"
             tools:ignore="MissingConstraints" />
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/first_element"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
+            android:maxLines="3"
+            android:singleLine="true"
             android:text="@string/defaultUSA"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/coefficient"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            autofit:minTextSize="10sp" />
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/second_element"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="12dp"
             android:layout_marginBottom="12dp"
+            android:maxLines="3"
+            android:singleLine="true"
             android:text="@string/defaultEU"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/coefficient"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toBottomOf="@+id/first_element"
+            app:layout_constraintVertical_bias="0.846"
+            autofit:minTextSize="10sp" />
 
         <ImageButton
             android:id="@+id/button_datetime"
@@ -133,9 +141,10 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/second_coefficient_by"
             app:layout_constraintStart_toEndOf="@+id/second_element"
             app:srcCompat="@drawable/europeanunion" />
 
@@ -143,8 +152,9 @@
             android:id="@+id/first_banner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/first_coefficient_by"
             app:layout_constraintStart_toEndOf="@+id/first_element"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/us" />
