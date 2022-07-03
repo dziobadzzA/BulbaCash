@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.service.bulbacash.data.db.dao.BulbaCashDAO
 import com.service.bulbacash.data.db.entity.BucketsEntity
+import com.service.bulbacash.data.db.entity.CurrencyEntity
 import com.service.bulbacash.data.db.entity.RateEntity
 
-@Database(entities = [BucketsEntity::class, RateEntity::class], version = 0, exportSchema = false)
+@Database(entities = [BucketsEntity::class, RateEntity::class, CurrencyEntity::class], version = 1, exportSchema = false)
 abstract  class DBCash: RoomDatabase() {
 
     abstract val databaseDao: BulbaCashDAO
@@ -43,3 +44,4 @@ abstract  class DBCash: RoomDatabase() {
 
     }
 }
+

@@ -2,10 +2,13 @@ package com.service.bulbacash.presentation.ui.course
 
 import androidx.lifecycle.ViewModel
 import com.service.bulbacash.di.Helper
+import com.service.bulbacash.di.MapperCountries
 import com.service.bulbacash.domain.models.BucketRate
 import com.service.bulbacash.domain.models.Rate
 import com.service.bulbacash.domain.usecases.CourseDateUseCase
 import com.service.bulbacash.domain.usecases.CourseTodayUseCase
+import com.service.bulbacash.domain.usecases.DeleteBucketUseCase
+import com.service.bulbacash.domain.usecases.GetBucketsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,33 +22,22 @@ import javax.inject.Inject
 class CourseViewModel @Inject constructor(
     private val courseTodayUseCase: CourseTodayUseCase,
     private val courseDateUseCase: CourseDateUseCase,
-    private val mapHelper: Helper
+    private val mapHelper: Helper,
+    private val getBucketsUseCase: GetBucketsUseCase,
+    private val deleteBucketUseCase: DeleteBucketUseCase,
+    private val mapMapperCountries: MapperCountries
 ):ViewModel() {
 
-    private val list = listOf(BucketRate(
-        firstElement = Rate(
-            Cur_ID = 431,
-            Date = "2022-04-10T00:00:00",
-            Cur_Abbreviation = "USD",
-            Cur_Scale = 1,
-            Cur_Name = "Доллар США",
-            Cur_OfficialRate = 2.80
-        ),
-        secondElement = Rate(
-            Cur_ID = 451,
-            Date = "2022-04-10T00:00:00",
-            Cur_Abbreviation = "EUR",
-            Cur_Scale = 1,
-            Cur_Name = "Евро",
-            Cur_OfficialRate = 3.00
-        ),
-        0.93,
-        1,
-        1, 0
-    ))
-
-    private var _buckets = MutableStateFlow(list.toMutableList()) // MutableStateFlow(mutableListOf<BucketRate>())
+    private var _buckets = MutableStateFlow(mutableListOf<BucketRate>())
     val buckets = _buckets.asStateFlow()
+
+    fun initBuckets() {
+        CoroutineScope(Dispatchers.IO).launch {
+            _buckets.value = getBucketsUseCase.invoke().toMutableList()
+        }
+    }
+
+    fun getMapperCountries() = mapMapperCountries
 
     private val oldBuckets = mutableListOf<BucketRate>()
 
@@ -148,5 +140,25 @@ class CourseViewModel @Inject constructor(
             else -> { 0 }
         }
     }
+
+    fun deleteItemList(ID: Int) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            if (deleteBucketUseCase.invoke(buckets.value[ID])) {
+               _buckets.value = newListLastDelete(ID)
+            }
+        }
+
+    }
+
+    private fun newListLastDelete(id: Int): MutableList<BucketRate> {
+        val newBucketRate = mutableListOf<BucketRate>()
+        for (i in 0 until buckets.value.size){
+            if (i != id)
+                newBucketRate.add(buckets.value[i])
+        }
+        return newBucketRate
+    }
+
 
 }

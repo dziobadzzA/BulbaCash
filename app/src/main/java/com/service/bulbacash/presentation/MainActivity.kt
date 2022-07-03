@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), NotArrow {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_course,
+                R.id.nav_new_bucket,
                 R.id.nav_check,
                 R.id.nav_templates,
                 R.id.nav_history,

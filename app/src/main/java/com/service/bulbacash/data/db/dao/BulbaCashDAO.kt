@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.service.bulbacash.data.db.entity.BucketsEntity
+import com.service.bulbacash.data.db.entity.CurrencyEntity
 import com.service.bulbacash.data.db.entity.RateEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -13,13 +14,16 @@ interface BulbaCashDAO {
 
     // commands for models Rate
     @Insert
-    suspend fun insertRate(token: RateEntity)
+    suspend fun insertRate(rate: RateEntity)
 
     @Query("SELECT * FROM rate WHERE id = :id")
     fun getRate(id: Long): Flow<RateEntity>
 
+    @Query("SELECT * FROM rate WHERE Cur_ID =:id ORDER BY id DESC LIMIT 1")
+    suspend fun getRateForBucket(id: Long): RateEntity?
+
     @Update
-    suspend fun updateToken(rate: RateEntity)
+    suspend fun updateRate(rate: RateEntity)
 
     @Query("DELETE FROM rate WHERE id=:id")
     suspend fun deleteRate(id: Long)
@@ -36,4 +40,29 @@ interface BulbaCashDAO {
 
     @Query("DELETE FROM buckets WHERE id=:id")
     suspend fun deleteBucket(id: Long)
+
+    @Query("SELECT * FROM buckets")
+    suspend fun getAllBuckets(): List<BucketsEntity>
+
+    // commands for models Currency
+    @Insert
+    suspend fun insertCurrency(currency: CurrencyEntity)
+
+    @Query("SELECT * FROM currency")
+    suspend fun getAllCurrency(): List<CurrencyEntity>
+
+    @Query("SELECT * FROM currency WHERE Cur_ID=:id")
+    suspend fun getCurrency(id:Long): CurrencyEntity
+
+    @Update
+    suspend fun updateCurrency(currency: CurrencyEntity)
+
+    @Query("DELETE FROM currency WHERE Cur_ID=:id")
+    suspend fun deleteCurrency(id: Long)
+
+    @Query("DELETE FROM currency")
+    suspend fun deleteAllCurrency()
+
+    @Query("SELECT COUNT(id) FROM currency")
+    suspend fun sizeTableCurrency():Int
 }

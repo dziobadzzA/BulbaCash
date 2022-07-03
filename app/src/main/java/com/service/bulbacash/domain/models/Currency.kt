@@ -10,7 +10,7 @@ data class Currency(
     val Cur_QuotName: String,
     val Cur_NameMulti: String,
     val Cur_Scale: Int,
-    val Cur_Periodicity: Boolean,
+    val Cur_Periodicity: Int,
     val Cur_DateStart: String,
     val Is_Cur_DateEnd: Boolean
 )
