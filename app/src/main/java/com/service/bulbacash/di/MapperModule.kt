@@ -72,4 +72,31 @@ object MapperModule {
         return RateToRateEntity()
     }
 
+    @Provides
+    fun provideItemStencilEntityToItemStencil(): ItemStencilEntityToItemStencil {
+        return ItemStencilEntityToItemStencil()
+    }
+
+    @Provides
+    fun provideStencilEntityToStencil(
+        bulbaCashDAO: BulbaCashDAO,
+        mapperItemStencilEntityToItemStencil: ItemStencilEntityToItemStencil
+    ): StencilEntityToStencil {
+        return StencilEntityToStencil(
+            bulbaCashDAO = bulbaCashDAO,
+            mapperItemStencilEntityToItemStencil = mapperItemStencilEntityToItemStencil
+        )
+    }
+
+    @Provides
+    fun provideItemStencilToItemStencilEntity(): ItemStencilToItemStencilEntity {
+        return ItemStencilToItemStencilEntity()
+    }
+
+    @Provides
+    fun provideStencilToStencilEntity(): StencilToStencilEntity {
+        return StencilToStencilEntity()
+    }
+
+
 }
