@@ -1,9 +1,6 @@
 package com.service.bulbacash.di
 
-import com.service.bulbacash.domain.repositories.CourseDayRepository
-import com.service.bulbacash.domain.repositories.CourseGraphRepository
-import com.service.bulbacash.domain.repositories.CurrentBucketsRepository
-import com.service.bulbacash.domain.repositories.GetBucketsRepository
+import com.service.bulbacash.domain.repositories.*
 import com.service.bulbacash.domain.usecases.*
 import dagger.Module
 import dagger.Provides
@@ -57,6 +54,16 @@ object UseCaseModule {
     @Provides
     fun provideGetBucketUseCase(repository: CurrentBucketsRepository):  GetBucketUseCase {
         return GetBucketUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideSaveStencilUseCase(repository: StencilRepository): SaveStencilUseCase {
+        return SaveStencilUseCase(repository=repository)
+    }
+
+    @Provides
+    fun provideDeleteStencilUseCase(repository: StencilRepository): DeleteStencilUseCase {
+        return DeleteStencilUseCase(repository=repository)
     }
 
 }
