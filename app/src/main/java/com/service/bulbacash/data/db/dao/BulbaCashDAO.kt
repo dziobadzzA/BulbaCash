@@ -1,12 +1,7 @@
 package com.service.bulbacash.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
-import com.service.bulbacash.data.db.entity.BucketsEntity
-import com.service.bulbacash.data.db.entity.CurrencyEntity
-import com.service.bulbacash.data.db.entity.RateEntity
+import androidx.room.*
+import com.service.bulbacash.data.db.entity.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -65,4 +60,35 @@ interface BulbaCashDAO {
 
     @Query("SELECT COUNT(id) FROM currency")
     suspend fun sizeTableCurrency():Int
+
+    // commands for model ItemStencil
+    @Insert
+    suspend fun insertItemStencil(itemStencil: ItemStencilEntity)
+
+    @Update
+    suspend fun updateItemStencil(itemStencil: ItemStencilEntity)
+
+    @Delete
+    suspend fun deleteItemStencil(itemStencil: ItemStencilEntity)
+
+    // commands for model LinkStencil
+    @Insert
+    suspend fun insertLinkStencil(linkStencil: LinkStencilEntity)
+
+    @Query("SELECT * FROM item_stencil INNER JOIN link_stencil ON " +
+            "item_stencil.id=link_stencil.item_id WHERE link_stencil.stencil_id=:stencil_id")
+    suspend fun getListItemsStencil(stencil_id: Long):List<ItemStencilEntity>
+
+    @Delete
+    suspend fun deleteLinkStencil(linkStencil: LinkStencilEntity)
+
+    // commands for model Stencil
+    @Insert
+    suspend fun insertStencil(Stencil: StencilEntity)
+
+    @Update
+    suspend fun updateStencil(Stencil: StencilEntity)
+
+    @Delete
+    suspend fun deleteStencil(Stencil: StencilEntity)
 }
