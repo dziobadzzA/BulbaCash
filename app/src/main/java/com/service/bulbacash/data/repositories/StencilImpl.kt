@@ -16,4 +16,8 @@ class StencilImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getListStencil(): List<Stencil> {
+        TODO("Not yet implemented")
+    }
+
 }
