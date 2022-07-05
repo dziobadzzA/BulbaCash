@@ -5,4 +5,5 @@ import com.service.bulbacash.domain.models.Stencil
 interface StencilRepository {
     suspend fun saveStencil(stencil: Stencil)
     suspend fun deleteStencil(stencil: Stencil)
+    suspend fun getListStencil(): List<Stencil>
 }
