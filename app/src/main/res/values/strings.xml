@@ -17,4 +17,5 @@
     <string name="add_new_buckets">Добавить баскет</string>
     <string name="nameStencil">This is name of stencil</string>
     <string name="TypesVal">Введите тип расхода, пункта</string>
+    <string name="st_templates">Сохранить статью расход</string>
 </resources>
