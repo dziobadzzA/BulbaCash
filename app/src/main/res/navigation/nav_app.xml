@@ -30,11 +30,18 @@
     <fragment
         android:id="@+id/nav_new_bucket"
         android:name="com.service.bulbacash.presentation.ui.buckets.WorkBucketsFragment"
-        android:layout="@layout/work_buckets_fragment">
-    </fragment>
+        android:layout="@layout/work_buckets_fragment"/>
     <fragment
         android:id="@+id/nav_templates"
         android:name="com.service.bulbacash.presentation.ui.stencil.StencilFragment"
-        android:layout="@layout/stencil_fragment" />
+        android:layout="@layout/stencil_fragment" >
+        <action
+            android:id="@+id/action_nav_templates_to_itemStencilFragment"
+            app:destination="@id/itemStencilFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemStencilFragment"
+        android:name="com.service.bulbacash.presentation.ui.stencil.item.ItemStencilFragment"
+        android:layout="@layout/items_stencil_layout" />
 
 </navigation>
