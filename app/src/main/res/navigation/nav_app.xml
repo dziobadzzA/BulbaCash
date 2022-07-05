@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_courseFragment_to_workBucketsFragment"
             app:destination="@id/nav_new_bucket" />
+        <action
+            android:id="@+id/action_nav_course_to_stencilFragment"
+            app:destination="@id/nav_templates" />
     </fragment>
     <fragment
         android:id="@+id/graphFragment"
@@ -29,5 +32,9 @@
         android:name="com.service.bulbacash.presentation.ui.buckets.WorkBucketsFragment"
         android:layout="@layout/work_buckets_fragment">
     </fragment>
+    <fragment
+        android:id="@+id/nav_templates"
+        android:name="com.service.bulbacash.presentation.ui.stencil.StencilFragment"
+        android:layout="@layout/stencil_fragment" />
 
 </navigation>
