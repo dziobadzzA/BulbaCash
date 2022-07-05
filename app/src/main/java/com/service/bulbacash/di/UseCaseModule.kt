@@ -66,4 +66,9 @@ object UseCaseModule {
         return DeleteStencilUseCase(repository=repository)
     }
 
+    @Provides
+    fun provideGetListStencilUseCase(repository: StencilRepository): GetListStencilUseCase {
+        return GetListStencilUseCase(repository=repository)
+    }
+
 }
