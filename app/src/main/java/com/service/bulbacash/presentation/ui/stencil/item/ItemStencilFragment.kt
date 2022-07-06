@@ -24,6 +24,10 @@ class ItemStencilFragment: Fragment(R.layout.items_stencil_layout) {
         binding?.apply {
             valEd.onItemSelectedListener = viewModel.mapAdapterCountries
                 .getListenerToSpinner(imageView = imageIcon)
+
+            addItemStencil.setOnClickListener {
+
+            }
         }
 
         lifecycleScope.launchWhenCreated {
