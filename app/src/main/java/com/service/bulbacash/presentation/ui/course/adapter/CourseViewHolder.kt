@@ -4,14 +4,14 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.BucketBinding
-import com.service.bulbacash.di.MapperCountries
+import com.service.bulbacash.di.AdapterCountries
 import com.service.bulbacash.domain.models.BucketRate
 import javax.inject.Inject
 
 class CourseViewHolder @Inject constructor(
     private val binding: BucketBinding,
     private val listener: CourseListener,
-    private val mapMapperCountries: MapperCountries
+    private val mapAdapterCountries: AdapterCountries
 ):RecyclerView.ViewHolder(binding.root) {
 
     fun bind(bucket: BucketRate) {
@@ -32,9 +32,9 @@ class CourseViewHolder @Inject constructor(
             coefficient.text = "%.3f".format(bucket.coeffiecient)
             bannerCourse(bucket.typeFirst, firstLine)
             bannerCourse(bucket.typeFirst, secondLine)
-            bucket.firstElement?.Cur_ID?.let { mapMapperCountries.getIconCountries(cur_ID= it) }
+            bucket.firstElement?.Cur_ID?.let { mapAdapterCountries.getIconCountries(cur_ID = it) }
                 ?.let { firstBanner.setImageResource(it) }
-            bucket.secondElement?.Cur_ID?.let { mapMapperCountries.getIconCountries(cur_ID = it) }
+            bucket.secondElement?.Cur_ID?.let { mapAdapterCountries.getIconCountries(cur_ID = it) }
                 ?.let { imageView.setImageResource(it) }
         }
     }

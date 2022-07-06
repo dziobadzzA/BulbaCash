@@ -1,5 +1,8 @@
 package com.service.bulbacash.di
 
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ImageView
 import com.service.bulbacash.R
 import com.service.bulbacash.domain.models.Currency
 import dagger.Module
@@ -9,17 +12,42 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object MapperCountries {
+object AdapterCountries {
 
-    fun mapperCurrencyList(list: List<Currency>): List<String> {
+    private var list = listOf<Currency>()
+
+    private fun getAdapterWorkBuckets(imageView: ImageView) = object : AdapterView.OnItemSelectedListener {
+
+        override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
+            i: Int, l: Long) {
+            imageView.setImageResource(getListWithIcon(list[i]))
+        }
+
+        override fun onNothingSelected(adapterView: AdapterView<*>?) {
+            return
+        }
+
+    }
+
+    @Provides
+    fun provideAdapterWorkBuckets(): AdapterCountries = AdapterCountries
+
+    fun getListText() = mapperCurrencyList(list)
+
+    fun getListWithIcon(item: Currency) = getIconCountries(item.Cur_ID)
+
+    fun getListenerToSpinner(imageView: ImageView) = getAdapterWorkBuckets(imageView = imageView)
+
+    fun setListAdapter(list: List<Currency>) {
+        this.list = list
+    }
+
+    private fun mapperCurrencyList(list: List<Currency>): List<String> {
         val mapList = mutableListOf<String>()
         for (item in list)
             mapList.add(item.Cur_Name)
         return mapList.toList()
     }
-
-    @Provides
-    fun provideMapperCountries(): MapperCountries = MapperCountries
 
     fun getIconCountries(cur_ID: Int) = when(cur_ID) {
         1 -> R.drawable.al
@@ -321,6 +349,5 @@ object MapperCountries {
         510 -> R.drawable.am
         else -> R.drawable.ic_baseline_language_24
     }
-
 
 }

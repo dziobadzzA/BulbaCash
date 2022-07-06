@@ -19,6 +19,10 @@ class ItemStencilFragment: Fragment(R.layout.items_stencil_layout) {
 
         binding = ItemsStencilLayoutBinding.bind(view)
 
+        binding?.apply {
+            // valEd.onItemSelectedListener =
+        }
+
     }
 
     override fun onDestroyView() {

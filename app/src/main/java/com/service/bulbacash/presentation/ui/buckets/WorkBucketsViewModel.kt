@@ -1,9 +1,7 @@
 package com.service.bulbacash.presentation.ui.buckets
 
-import android.widget.ImageView
 import androidx.lifecycle.ViewModel
-import com.service.bulbacash.di.AdapterWorkBuckets
-import com.service.bulbacash.di.MapperCountries
+import com.service.bulbacash.di.AdapterCountries
 import com.service.bulbacash.domain.models.Currency
 import com.service.bulbacash.domain.usecases.AddBucketUseCase
 import com.service.bulbacash.domain.usecases.GetAllBucketsUseCase
@@ -19,33 +17,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorkBucketsViewModel @Inject constructor(
-    private val getAllBucketsUseCase: GetAllBucketsUseCase,
     private val updateAllBucketsUseCase: UpdateAllBucketsUseCase,
+    private val getAllBucketsUseCase: GetAllBucketsUseCase,
     private val addBucketUseCase: AddBucketUseCase,
-    private val mapMapperCountries: MapperCountries,
-    private val mapAdapterWorkBuckets: AdapterWorkBuckets
+    val mapAdapterCountries: AdapterCountries
 ):ViewModel() {
 
     private var _list = MutableStateFlow(listOf<Currency>())
     val list = _list.asStateFlow()
 
-    fun getCurrency() {
-        CoroutineScope(Dispatchers.IO).launch {
-            _list.value = getAllBucketsUseCase.invoke()
-        }
-    }
-
-    fun getListTextCountries() = mapMapperCountries.mapperCurrencyList(list.value)
-
-    fun getImageIcon(item: Currency) = mapMapperCountries.getIconCountries(item.Cur_ID)
-
-    fun getListenerToSpinner(imageView: ImageView) = mapAdapterWorkBuckets.getAdapterWorkBuckets(
-        imageView = imageView, viewModel = this
-    )
-
     fun getNewPartToBuckets() {
         CoroutineScope(Dispatchers.IO).launch {
-            _list.value = updateAllBucketsUseCase.invoke()
+           _list .value = updateAllBucketsUseCase.invoke()
         }
     }
 
@@ -60,6 +43,13 @@ class WorkBucketsViewModel @Inject constructor(
             return stateAddElement.await()
         }
         return false
+    }
+
+    fun getListForSpinner() {
+        CoroutineScope(Dispatchers.IO).launch {
+            _list.value = getAllBucketsUseCase.invoke()
+            mapAdapterCountries.setListAdapter(list.value)
+        }
     }
 
 }

@@ -14,7 +14,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
 
@@ -45,12 +44,11 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
                 swipeRefreshLayout.isRefreshing = false
             }
 
-            spinnerFirst.onItemSelectedListener = viewModel.getListenerToSpinner(
-                imageView = imageFirst)
+            spinnerFirst.onItemSelectedListener = viewModel.mapAdapterCountries
+                .getListenerToSpinner(imageView = imageFirst)
 
-            spinnerSecond.onItemSelectedListener = viewModel.getListenerToSpinner(
-                imageView = imageSecond
-            )
+            spinnerSecond.onItemSelectedListener = viewModel.mapAdapterCountries
+                .getListenerToSpinner(imageView = imageSecond)
 
         }
 
@@ -58,15 +56,16 @@ class WorkBucketsFragment: Fragment(R.layout.work_buckets_fragment){
             viewModel.list.collect {
                 if (it.isNotEmpty()) {
                     addItemsToList(
-                        list = viewModel.getListTextCountries(),
-                        firstImage = viewModel.getImageIcon(it[0]),
-                        secondImage = viewModel.getImageIcon(it[0])
+                        list = viewModel.mapAdapterCountries.getListText(),
+                        firstImage = viewModel.mapAdapterCountries.getListWithIcon(it[0]),
+                        secondImage = viewModel.mapAdapterCountries.getListWithIcon(it[0])
                     )
                 }
             }
         }
 
-        viewModel.getCurrency()
+        viewModel.getListForSpinner()
+
     }
 
     override fun onDestroyView() {
