@@ -15,12 +15,14 @@ import dagger.hilt.components.SingletonComponent
 object AdapterCountries {
 
     private var list = listOf<Currency>()
+    private var currentIndex = 0
 
     private fun getAdapterWorkBuckets(imageView: ImageView) = object : AdapterView.OnItemSelectedListener {
 
         override fun onItemSelected(adapterView: AdapterView<*>?, view: View?,
             i: Int, l: Long) {
             imageView.setImageResource(getListWithIcon(list[i]))
+            currentIndex = i
         }
 
         override fun onNothingSelected(adapterView: AdapterView<*>?) {
@@ -28,6 +30,8 @@ object AdapterCountries {
         }
 
     }
+
+    fun getCurrentElement() = list[currentIndex]
 
     @Provides
     fun provideAdapterWorkBuckets(): AdapterCountries = AdapterCountries
