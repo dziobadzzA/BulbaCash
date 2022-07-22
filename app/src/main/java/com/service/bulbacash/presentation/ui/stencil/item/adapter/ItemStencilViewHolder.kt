@@ -10,7 +10,15 @@ class ItemStencilViewHolder(
 ): RecyclerView.ViewHolder(binding.root) {
 
     fun bind(itemStencil: ItemStencil) {
-
+         binding.apply {
+             textStencil.text = "${itemStencil.costName}"
+             buttonEdit.setOnClickListener {
+                 listener.clickEditItemStencil(itemStencil)
+             }
+             buttonDelete.setOnClickListener {
+                 listener.clickDeleteItemStencil(itemStencil)
+             }
+         }
     }
 
 }
