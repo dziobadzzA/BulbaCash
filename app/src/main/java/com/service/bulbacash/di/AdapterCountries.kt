@@ -53,6 +53,8 @@ object AdapterCountries {
         return mapList.toList()
     }
 
+    fun getCurrencyFromIndex(cur_ID: Int): Int = list.indexOfFirst { it.Cur_ID == cur_ID }
+
     fun getIconCountries(cur_ID: Int) = when(cur_ID) {
         1 -> R.drawable.al
         2 -> R.drawable.dz

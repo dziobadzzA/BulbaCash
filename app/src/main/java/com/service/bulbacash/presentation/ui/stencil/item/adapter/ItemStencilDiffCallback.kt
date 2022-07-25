@@ -7,7 +7,7 @@ import com.service.bulbacash.domain.models.ItemStencil
 class ItemStencilDiffCallback: DiffUtil.ItemCallback<ItemStencil>() {
 
     override fun areItemsTheSame(oldItem: ItemStencil, newItem: ItemStencil): Boolean {
-        return  oldItem.Cur_ID == newItem.Cur_ID
+        return  oldItem.costName == newItem.costName
     }
 
     override fun areContentsTheSame(oldItem: ItemStencil, newItem: ItemStencil): Boolean {

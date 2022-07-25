@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.service.bulbacash.R
 import com.service.bulbacash.databinding.ItemsStencilLayoutBinding
-import com.service.bulbacash.databinding.StencilFragmentBinding
 import com.service.bulbacash.domain.models.ItemStencil
 import com.service.bulbacash.presentation.ui.stencil.item.adapter.ItemStencilAdapter
 import com.service.bulbacash.presentation.ui.stencil.item.adapter.ItemStencilListener
@@ -28,6 +27,7 @@ class ItemStencilFragment: Fragment(R.layout.items_stencil_layout), ItemStencilL
         adapter = ItemStencilAdapter(this)
 
         binding?.apply {
+            listStencil.adapter = adapter
             valEd.onItemSelectedListener = viewModel.mapAdapterCountries
                 .getListenerToSpinner(imageView = imageIcon)
 
@@ -38,26 +38,23 @@ class ItemStencilFragment: Fragment(R.layout.items_stencil_layout), ItemStencilL
 
             }
 
-            listStencil.adapter = adapter
-
-        }
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.list.collect {
-                if (it.isNotEmpty()) {
-                    addItemsToList(
-                        list = viewModel.mapAdapterCountries.getListText(),
-                        startImage = viewModel.mapAdapterCountries.getListWithIcon(it[0])
-                    )
+            lifecycleScope.launchWhenCreated {
+                viewModel.list.collect {
+                    if (it.isNotEmpty()) {
+                        addItemsToList(
+                            list = viewModel.mapAdapterCountries.getListText(),
+                            startImage = viewModel.mapAdapterCountries.getListWithIcon(it[0])
+                        )
+                    }
                 }
             }
-        }
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.listItemStencil.collect() {
-                if (it.isNotEmpty())
-                    adapter?.submitList(it)
+            lifecycleScope.launchWhenCreated {
+                viewModel.listItemStencil.collect() {
+                    adapter?.submitList(it.toMutableList())
+                }
             }
+
         }
 
         viewModel.getListForSpinner()
@@ -79,11 +76,15 @@ class ItemStencilFragment: Fragment(R.layout.items_stencil_layout), ItemStencilL
     }
 
     override fun clickEditItemStencil(itemStencil: ItemStencil) {
-        val aa = 0
+        binding?.apply {
+            textInputEditText.setText(itemStencil.costName)
+            valEd.setSelection(viewModel.mapAdapterCountries
+                .getCurrencyFromIndex(itemStencil.Cur_ID))
+        }
     }
 
     override fun clickDeleteItemStencil(itemStencil: ItemStencil) {
-        val a = 0
+        viewModel.deleteInListItemStencil(itemStencil)
     }
 
 }
