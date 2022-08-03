@@ -31,7 +31,9 @@ class ItemStencilViewModel @Inject constructor(
 
     fun getListForSpinner() {
         CoroutineScope(Dispatchers.IO).launch {
-            _list.value = getAllBucketsUseCase.invoke()
+            val helpList = getAllBucketsUseCase.invoke().toMutableList()
+            helpList.add(mapAdapterCountries.getBLRCurrency())
+            _list.value = helpList.toList()
             mapAdapterCountries.setListAdapter(list.value)
         }
     }

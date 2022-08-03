@@ -53,9 +53,24 @@ object AdapterCountries {
         return mapList.toList()
     }
 
+    fun getBLRCurrency() = Currency(
+            Cur_Abbreviation = "BLR",
+            Cur_Code = "000",
+            Cur_DateStart="2021-07-09T00:00:00",
+            Cur_ID = 0,
+            Cur_Name = "Белорусский рубль",
+            Cur_NameMulti = "Белорусских рублей",
+            Cur_ParentID = 0,
+            Cur_Periodicity = 0,
+            Cur_QuotName = "1 Белорусский рубль",
+            Cur_Scale = 1,
+            Is_Cur_DateEnd = true
+    )
+
     fun getCurrencyFromIndex(cur_ID: Int): Int = list.indexOfFirst { it.Cur_ID == cur_ID }
 
     fun getIconCountries(cur_ID: Int) = when(cur_ID) {
+        0 -> R.drawable.by
         1 -> R.drawable.al
         2 -> R.drawable.dz
         5 -> R.drawable.ar

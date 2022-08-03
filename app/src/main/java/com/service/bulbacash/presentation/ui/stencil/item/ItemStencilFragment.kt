@@ -35,7 +35,11 @@ class ItemStencilFragment: Fragment(R.layout.items_stencil_layout), ItemStencilL
                 viewModel.addItemToListStencil(textInputEditText.text.toString())
             }
             buttonCancel.setOnClickListener {
+                // TODO cancel template
+            }
 
+            buttonAdd.setOnClickListener {
+                // TODO add template
             }
 
             lifecycleScope.launchWhenCreated {
